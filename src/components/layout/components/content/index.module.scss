@@ -1,0 +1,17 @@
+@import '/src/styles/common.scss';
+
+.content {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    padding: 16px;
+    gap: 8px;
+    border: 2px;
+
+    &__children {
+        height: 100%;
+        width: 61.8%;
+        background-color: $lightBgColor;
+        border: 1px solid $borderColor;
+    }
+}

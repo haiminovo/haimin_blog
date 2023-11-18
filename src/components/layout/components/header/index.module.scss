@@ -1,0 +1,50 @@
+@import '/src/styles/common.scss';
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-radius: 2px;
+    border: 1px solid $borderColor;
+    box-shadow: 0 2px 8px $shadowColor;
+
+
+    &__title {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .header__icon {
+            border-radius: 12px;
+        }
+
+        .header__text {
+            font-size: 18px;
+            font-weight: bold;
+            color: $lightBgColor;
+        }
+    }
+
+    &__links {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        width: 15%;
+        gap: 16px;
+
+        .header__link {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            color: $itemTitleColor;
+            line-height: 26px;
+            text-align: center;
+            text-decoration: none;
+
+            &:hover {
+                border-bottom: 2px solid $linkTextColor;
+            }
+        }
+    }
+}

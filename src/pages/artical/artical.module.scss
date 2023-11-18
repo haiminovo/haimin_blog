@@ -1,0 +1,73 @@
+@import '/src/styles/common.scss';
+
+.articals {
+    display: flex;
+    flex-direction: column;
+
+    .artical {
+        padding: 16px 16px 0 16px;
+
+
+        .articalBox {
+            display: flex;
+            height: 100%;
+            padding-bottom: 16px;
+            border-bottom: 1px solid $borderColor;
+            gap: 16px;
+
+            &__main {
+                display: flex;
+                flex-grow: 1;
+                flex-direction: column;
+                gap: 8px;
+
+                .articalBox__title {
+                    font-weight: bold;
+                    font-size: 18px;
+                    color: $titleTextColor;
+                }
+
+                .articalBox__summary {
+                    font-size: 16px;
+                    color: $mainTextColor;
+                }
+
+                .articalBox__infBox {
+                    display: flex;
+
+                    justify-content: space-between;
+
+                    .articalBox__inf {
+                        display: flex;
+                        gap: 16px;
+                    }
+
+                    .articalBox__tags {
+                        display: flex;
+                        gap: 8px;
+
+
+                        .articalBox__tag {
+                            color: $mainTextColor;
+                            background-color: $darkerBgColor;
+                            padding: 0 6px;
+                            line-height: 26px;
+                            border-radius: 2px;
+                        }
+                    }
+                }
+            }
+
+            &__img {
+                object-fit: cover;
+            }
+
+
+        }
+
+        &:hover {
+            background-color: $midBgColor;
+        }
+    }
+
+}

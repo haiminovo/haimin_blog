@@ -1,0 +1,8 @@
+@import '/src/styles/common.scss';
+
+.canvasBox {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - $headerHeight - $footerHeight);
+    opacity: 0.3;
+}

@@ -1,0 +1,26 @@
+@import '../../styles/common.scss';
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__cutLine {
+        width: 100%;
+        height: 1px;
+        background-image: linear-gradient(to right, white, darkgray, white);
+    }
+    &__links {
+        display: flex;
+        gap: 16px;
+        height: $footerHeight;
+        background-color: $footerColor;
+        .footer__link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: $mainTextColor;
+            font-size: 12px;
+            text-decoration: none;
+        }
+    }
+}

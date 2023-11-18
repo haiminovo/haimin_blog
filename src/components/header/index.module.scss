@@ -1,0 +1,27 @@
+@import '../../styles/common.scss';
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    background-color: $headerColor;
+    padding: 0 16px;
+    &__icon {
+        border-radius: 25px;
+    }
+    &__links {
+        display: flex;
+        width: 40%;
+        gap: 16px;
+        .header__link {
+            flex: 1;
+            color: $itemTitleColor;
+            background-color: $darkBgColor;
+            border-radius: 10px;
+            border: 1px solid #EAF0FC;
+            line-height: 26px;
+            text-align: center;
+            text-decoration: none;
+        }
+    }
+}

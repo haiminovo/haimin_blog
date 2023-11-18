@@ -1,0 +1,5 @@
+@import '../../styles/common.scss';
+.content{
+    min-height:$minContentHeight ;
+    overflow-y: scroll;
+}

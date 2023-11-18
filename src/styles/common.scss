@@ -1,0 +1,111 @@
+$mainTextColor: #64698b;
+$titleTextColor: #353c58;
+$activeTextColor: #1d78ff;
+$activeTextColorLight: rgba(29, 120, 255, 0.7);
+$descTextColor: #8b8fa8;
+$darkBgColor: #f4f8ff;
+$lightBgColor: #ffffff;
+$itemTitleColor: #3d446e;
+$linkTextColor: #1d78ff;
+$solutionDescTextColor: #64698b;
+$lightBorderColor: #EAF0FC;
+
+$mainFontFamily: PingFangSC-Regular, PingFang SC;
+$titleFontFamily: PingFangSC-Medium, PingFang SC;
+
+$device375px: 375px;
+
+// 页面基础配置
+$headerColor:#64698b;
+$headerHeight:50px;
+$footerColor:$lightBgColor;
+$footerHeight:40px;
+$contentColor:$lightBgColor;
+$minContentHeight:calc(100vh - $headerHeight - $footerHeight - 1px);
+
+
+@mixin text-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@mixin mobileHomeTitle {
+    font-size: 20px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #353c58;
+    line-height: 28px;
+}
+
+@mixin mobileHomeDesc {
+    font-size: 12px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #64698b;
+    line-height: 22px;
+}
+
+@mixin multilineEllipsis($row) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $row;
+}
+
+@mixin textFontFactory($size, $color, $weight, $family, $lineHeight) {
+    font-size: $size;
+    color: $color;
+    font-weight: $weight;
+    font-family: $family;
+    line-height: $lineHeight;
+}
+
+@mixin hideScrollBar {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/*
+    $px: 要转换的像素值
+    $devicePx: 要转换到对应的设备宽度
+*/
+@function pxToVw($px, $devicePx) {
+    @return (100 * $px / $devicePx) * 1vw;
+}
+
+@function scaleWidth($target, $from, $to) {
+    @return $target * $from / $to;
+}
+
+.sectionTitle {
+    padding-top: 60px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #353c58;
+    line-height: 40px;
+    text-align: center;
+}
+
+.sectionDesc {
+    font-size: 14px;
+    padding: 16px 0;
+    font-weight: 400;
+    color: #64698b;
+    line-height: 22px;
+    text-align: center;
+
+    :global {
+        a {
+            font-size: 14px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #1d78ff;
+            line-height: 20px;
+        }
+    }
+}

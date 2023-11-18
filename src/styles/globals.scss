@@ -1,0 +1,11 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1439px) {
+    html,
+    body {
+        min-width: 1200px;
+    }
+}

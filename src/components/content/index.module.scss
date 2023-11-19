@@ -1,5 +1,5 @@
 @import '../../styles/common.scss';
 .content{
-    min-height:$minContentHeight ;
-    overflow-y: scroll;
+    width: 100vw;
+    height: $minContentHeight;
 }

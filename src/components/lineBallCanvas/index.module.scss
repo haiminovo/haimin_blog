@@ -1,0 +1,6 @@
+@import '../../styles/common.scss';
+.canvasBox {
+    position: absolute;
+    width: 100%;
+    min-height: $minContentHeight;
+}

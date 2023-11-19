@@ -6,9 +6,20 @@
     height: 50px;
     background-color: $headerColor;
     padding: 0 16px;
-    &__icon {
-        border-radius: 25px;
+    &__title {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        .header__icon {
+            border-radius: 12px;
+        }
+        .header__text {
+            font-size: 18px;
+            font-weight: bold;
+            color: $lightBgColor;
+        }
     }
+
     &__links {
         display: flex;
         width: 40%;
@@ -18,7 +29,7 @@
             color: $itemTitleColor;
             background-color: $darkBgColor;
             border-radius: 10px;
-            border: 1px solid #EAF0FC;
+            border: 1px solid #eaf0fc;
             line-height: 26px;
             text-align: center;
             text-decoration: none;

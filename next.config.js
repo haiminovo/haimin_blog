@@ -1,10 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: [
-            'haiminovo.cn',
+        remotePatterns: [
+            {
+                protocol: 'http',
+                hostname: 'haiminovo.cn',
+                pathname: '**',
+            },
         ],
     },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

@@ -1,6 +1,6 @@
-.layout{
+@import '/src/styles/common.scss';
+
+.layout {
+    height: 100%;
     position: relative;
-    *{
-        position: relative;
-    }
 }

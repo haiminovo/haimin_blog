@@ -1,4 +1,5 @@
-@import '../../styles/common.scss';
+@import '/src/styles/common.scss';
+
 .footer {
     display: flex;
     flex-direction: column;
@@ -9,11 +10,13 @@
         height: 1px;
         background-image: linear-gradient(to right, white, lightgray, white);
     }
+
     &__links {
         display: flex;
         gap: 16px;
         height: $footerHeight;
         background-color: $footerColor;
+
         .footer__link {
             display: flex;
             justify-content: center;

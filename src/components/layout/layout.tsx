@@ -6,9 +6,9 @@ import Header from '@/components/layout/components/header';
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <div className={style.layout}>
-            <Header />
-            <Content>{children}</Content>
-            <Footer />
+            <Header className={style.layout__header} />
+            <Content className={style.layout__content}>{children}</Content>
+            <Footer className={style.layout__footer} />
         </div>
     );
 }

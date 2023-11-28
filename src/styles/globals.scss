@@ -1,11 +1,13 @@
 body {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
-@media screen and (min-width: 769px) and (max-width: 1439px) {
-    html,
-    body {
-        min-width: 1200px;
-    }
-}
+@media screen and (min-width: 1440px) and (max-width: 1920px) {}
+
+@media screen and (width: 1440px) {}
+
+@media screen and (min-width: 768px) and (max-width: 1439px) {}
+
+@media screen and (max-width: 768px) {}

@@ -4,32 +4,29 @@ import Image from 'next/image';
 import style from './index.module.scss';
 import Link from 'next/link';
 import siteData from '@/data/siteData';
+import { classNames } from '@/utils/commonUtils';
 
-export default function Header() {
+interface IHeaderProps {
+    className?: string;
+}
+
+export default function Header({ className = '' }: IHeaderProps) {
     const route = [
         {
-            name: 'artical',
+            name: '首页',
+            link: '/',
+        },
+        {
+            name: '文章',
             link: '/artical',
         },
         {
-            name: 'artical',
-            link: '/artical',
-        },
-        {
-            name: 'artical',
-            link: '/artical',
-        },
-        {
-            name: 'artical',
-            link: '/artical',
-        },
-        {
-            name: 'artical',
-            link: '/artical',
+            name: '我的',
+            link: '/my',
         },
     ];
     return (
-        <div className={style.header}>
+        <div className={classNames(style.header, className)}>
             <div className={style.header__title}>
                 <Image
                     className={style.header__icon}
@@ -38,9 +35,7 @@ export default function Header() {
                     alt="haimin"
                     src="http://haiminovo.cn:8088/haimin.jpg"
                 />
-                <div className={style.header__text}>
-                    {siteData.name}
-                </div>
+                <div className={style.header__text}>{siteData.name}</div>
             </div>
 
             <div className={style.header__links}>

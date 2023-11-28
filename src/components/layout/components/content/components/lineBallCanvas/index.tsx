@@ -17,12 +17,12 @@ export default function LineBallCanvas() {
         return (Math.abs(point.x - targetPoint.x) ** 2 + Math.abs(point.y - targetPoint.y) ** 2) ** 0.5;
     };
 
-    const initCanvas = (canvas: any, window: any) => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight - 90;
+    const initCanvas = (canvas: any, width: number, height: number) => {
+        canvas.width = width;
+        canvas.height = height;
         const ctx = canvas.current.getContext('2d');
         class Point implements IPoint {
-            r = 1;
+            r = getRandom(1, 3);
             x = getRandom(0, canvas.width - this.r / 2);
             y = getRandom(0, canvas.height - this.r / 2);
             color = getRandomColor();
@@ -57,7 +57,7 @@ export default function LineBallCanvas() {
             pointNum: number;
             points: Point[];
             constructor() {
-                this.pointNum = 100;
+                this.pointNum = 50;
                 this.points = new Array(this.pointNum).fill(0).map(() => new Point());
             }
             draw() {
@@ -69,7 +69,7 @@ export default function LineBallCanvas() {
                     point.draw();
                     for (let i = index; i < this.points.length; i++) {
                         let targetPoint = this.points[i];
-                        if (getDistance(point, targetPoint) < 50) {
+                        if (getDistance(point, targetPoint) < 50 && point.r < targetPoint.r) {
                             ctx.moveTo(point.x, point.y);
                             ctx.lineTo(targetPoint.x, targetPoint.y);
                             ctx.strokeStyle = point.color;
@@ -88,21 +88,19 @@ export default function LineBallCanvas() {
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
     const handleResize = () => {
-        setHeight(canvasBox.current.offsetHeight);
-        setWidth(canvasBox.current.offsetWidth);
-        initCanvas(canvas, window);
+        console.log(canvasBox);
+
+        setHeight(canvasBox.current.clientHeight);
+        setWidth(canvasBox.current.clientWidth);
+        initCanvas(canvas, width, height);
     };
-    const handleMouseMove = (e: any) => {
-        console.log(e);
-    };
+    const handleMouseMove = (e: any) => {};
     useEffect(() => {
-        setHeight(canvasBox.current.offsetHeight);
-        setWidth(canvasBox.current.offsetWidth);
-        initCanvas(canvas, window);
-    }, [canvas]);
+        handleResize();
+    }, [canvasBox.current]);
 
     return (
-        <div ref={canvasBox} className={style.canvasBox} onResize={handleResize}>
+        <div ref={canvasBox} className={style.canvasBox}>
             <canvas width={width} height={height} ref={canvas} onMouseMove={handleMouseMove} />
         </div>
     );

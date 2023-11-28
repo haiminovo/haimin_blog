@@ -3,4 +3,22 @@
 .layout {
     height: 100%;
     position: relative;
+
+    &__header {
+        position: sticky;
+        top: 0;
+        height: $headerHeight;
+        background-color: $headerColor;
+        z-index: 999;
+    }
+
+    &__content {
+        min-height: $minContentHeight;
+        background-color: $contentColor;
+    }
+
+    &__footer {
+        height: $footerHeight;
+        background-color: $footerColor;
+    }
 }

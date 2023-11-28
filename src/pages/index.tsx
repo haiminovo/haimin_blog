@@ -6,13 +6,13 @@ export default function Home() {
             <div
                 style={{
                     width: '100%',
-                    height: '400px',
+                    height: '100%',
                     display: 'flex',
                     alignItems: 'center',
                     flexDirection: 'column',
                 }}
             >
-                <div style={{ background: 'black', width: '1200px', height: '100px' }}></div>
+                <div style={{ width: '100%', height: '100%' }}></div>
             </div>
         </Layout>
     );

@@ -5,7 +5,4 @@
     top: calc($headerHeight + 16px);
     width: 19.1%;
     height: calc(100vh - $headerHeight - 32px);
-    background-color: $lightBgColor;
-    border-radius: 2px;
-    border: 1px solid $borderColor;
 }

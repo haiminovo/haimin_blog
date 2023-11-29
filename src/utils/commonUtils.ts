@@ -10,3 +10,12 @@ export function getRandomColor() {
 export function classNames(...classNames: string[]) {
     return classNames.join(' ');
 }
+export function getRandomCharacter(length: number = 1) {
+    let character = '';
+    while (length) {
+        const unicode = getRandom(19968, 40959); //unicode基本汉字编码范围（4E00 - 9FFF）对应十进制
+        character += String.fromCharCode(unicode);
+        length--;
+    }
+    return character;
+}

@@ -24,6 +24,10 @@ export default function Header({ className = '' }: IHeaderProps) {
             link: '/artical',
         },
         {
+            name: '创作',
+            link: '/edit',
+        },
+        {
             name: '我的',
             link: '/my',
         },

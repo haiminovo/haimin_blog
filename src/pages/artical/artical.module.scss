@@ -7,7 +7,6 @@
     .artical {
         padding: 16px 16px 0 16px;
 
-
         .articalBox {
             display: flex;
             height: 100%;
@@ -46,7 +45,6 @@
                         display: flex;
                         gap: 8px;
 
-
                         .articalBox__tag {
                             color: $mainTextColor;
                             background-color: $darkerBgColor;
@@ -61,13 +59,10 @@
             &__img {
                 object-fit: cover;
             }
-
-
         }
 
         &:hover {
             background-color: $midBgColor;
         }
     }
-
 }

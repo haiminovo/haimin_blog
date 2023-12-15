@@ -7,9 +7,7 @@ interface IQuillEditorProps {
     className?: string;
 }
 
-export default function ReactQuillEditor({ className }: IQuillEditorProps) {
-    const [value, setValue] = useState('');
-    const reactQuillRef: any = null;
+export default function ReactQuillEditor({ className, value, onChange }: IQuillEditorProps) {
     var toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'], // toggled buttons
         ['blockquote', 'code-block'],
@@ -29,5 +27,5 @@ export default function ReactQuillEditor({ className }: IQuillEditorProps) {
     const modules: any = {
         toolbar: toolbarOptions,
     };
-    return <ReactQuill value={value} modules={modules} className={className} theme="snow" />;
+    return <ReactQuill value={value} modules={modules} className={className} theme="snow" onChange={onChange} />;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Image from 'next/image';
 import style from './index.module.scss';
@@ -7,12 +7,14 @@ import siteData from '@/data/siteData';
 import { classNames } from '@/utils/commonUtils';
 import siteConfig from '@/config/siteConfig';
 import { useRouter } from 'next/router';
+import { Form, Modal } from 'antd';
 
 interface IHeaderProps {
     className?: string;
 }
 
 export default function Header({ className = '' }: IHeaderProps) {
+    const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
     const router = useRouter();
     const route = [
         {
@@ -31,9 +33,28 @@ export default function Header({ className = '' }: IHeaderProps) {
             name: '我的',
             link: '/my',
         },
+        {
+            name: '登录',
+            link: '',
+            onclick: () => {
+                setShowLoginModal(true);
+            },
+        },
     ];
+    const handleOk = () => {
+        setShowLoginModal(false);
+    };
+
+    const handleCancel = () => {
+        setShowLoginModal(false);
+    };
     return (
         <div className={classNames(style.header, className)}>
+            <Modal title="登录" open={showLoginModal} onOk={handleOk} onCancel={handleCancel}>
+                <Form>
+                    
+                </Form>
+            </Modal>
             <div className={style.header__title}>
                 <Image
                     className={style.header__icon}
@@ -49,7 +70,7 @@ export default function Header({ className = '' }: IHeaderProps) {
             <div className={style.header__links}>
                 {route.map((item, index) => {
                     return (
-                        <Link key={index} className={style.header__link} href={item.link}>
+                        <Link key={index} className={style.header__link} href={item.link} onClick={item.onclick}>
                             {item.name}
                         </Link>
                     );

@@ -5,12 +5,15 @@ import style from './index.module.scss';
 import Link from 'next/link';
 import siteData from '@/data/siteData';
 import { classNames } from '@/utils/commonUtils';
+import siteConfig from '@/config/siteConfig';
+import { useRouter } from 'next/router';
 
 interface IHeaderProps {
     className?: string;
 }
 
 export default function Header({ className = '' }: IHeaderProps) {
+    const router = useRouter();
     const route = [
         {
             name: '首页',
@@ -33,7 +36,8 @@ export default function Header({ className = '' }: IHeaderProps) {
                     width={32}
                     height={32}
                     alt="haimin"
-                    src="http://haiminovo.cn:8088/haimin.jpg"
+                    src={siteConfig.imgServer + 'haimin.jpg'}
+                    onClick={() => router.push('/')}
                 />
                 <div className={style.header__text}>{siteData.name}</div>
             </div>

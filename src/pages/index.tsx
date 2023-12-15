@@ -12,7 +12,7 @@ export default function Home() {
                     flexDirection: 'column',
                 }}
             >
-                <div style={{ width: '100%', height: '100%' }}></div>
+                <div style={{ width: '100%', height: '100vh' }}>123</div>
             </div>
         </Layout>
     );

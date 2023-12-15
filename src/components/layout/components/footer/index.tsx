@@ -2,6 +2,7 @@ import React from 'react';
 import style from './index.module.scss';
 import Image from 'next/image';
 import { classNames } from '@/utils/commonUtils';
+import siteConfig from '@/config/siteConfig';
 
 interface IFooterProps {
     className?: string;
@@ -21,9 +22,9 @@ export default function Footer({ className = '' }: IFooterProps) {
                         <Image
                             width={16}
                             height={16}
-                            style={{ paddingRight: '4px' }}
+                            style={{ marginRight: '4px' }}
                             alt="浙公网安备33010502007246号"
-                            src="http://haiminovo.cn:8088/备案图标.png"
+                            src={siteConfig.imgServer + '备案图标.png'}
                             unoptimized
                         />
                         浙公网安备33010502007246号

@@ -3,6 +3,7 @@ import getArticalsMockData, { IArticalsData } from '@/data/mock/articalsMockData
 import style from './artical.module.scss';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import siteConfig from '@/config/siteConfig';
 
 export default function ArticalsPage() {
     const [articalsData, setArticalsData] = useState<IArticalsData[]>([]);
@@ -41,7 +42,7 @@ export default function ArticalsPage() {
                                     className={style.articalBox__img}
                                     width={80}
                                     height={80}
-                                    src="http://haiminovo.cn:8088/artical.svg"
+                                    src={siteConfig.imgServer + 'artical.svg'}
                                     alt={item.title || ''}
                                 />
                             </div>

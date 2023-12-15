@@ -1,6 +1,8 @@
+import siteConfig from '@/config/siteConfig';
+
 const siteData = {
     name: '',
-    desc: '这论坛好使!',
-    img: 'haiminovo.cn:8088/haimin.jpg',
+    desc: '',
+    img: siteConfig.imgServer + 'haimin.jpg',
 };
 export default siteData;

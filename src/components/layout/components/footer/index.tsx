@@ -2,7 +2,7 @@ import React from 'react';
 import style from './index.module.scss';
 import Image from 'next/image';
 import { classNames } from '@/utils/commonUtils';
-import siteConfig from '@/config/siteConfig';
+import siteConfig from '@/configs/siteConfig';
 
 interface IFooterProps {
     className?: string;

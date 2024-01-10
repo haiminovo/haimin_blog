@@ -1,0 +1,23 @@
+@import '/src/styles/common.scss';
+.routerLink {
+    height: 100%;
+    &__links {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        gap: 16px;
+        .routerLink__link {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            color: $itemTitleColor;
+            line-height: 26px;
+            text-align: center;
+            text-decoration: none;
+
+            &:hover {
+                border-bottom: 2px solid $linkTextColor;
+            }
+        }
+    }
+}

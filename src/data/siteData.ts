@@ -1,4 +1,4 @@
-import siteConfig from '@/config/siteConfig';
+import siteConfig from '@/configs/siteConfig';
 
 const siteData = {
     name: '',

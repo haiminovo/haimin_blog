@@ -1,8 +1,10 @@
-import { combineReducers } from 'redux';
-import { loginReducer } from './reducer/loginReducer';
 import { configureStore } from '@reduxjs/toolkit';
+import loginReducer from '../store/slices/loginSlice';
+export const store = configureStore({
+    reducer: {
+        login: loginReducer,
+    },
+});
 
-// 使用redux的combineReducers方法将所有reducer打包起来
-const store = configureStore({ reducer: combineReducers({ login: loginReducer }) });
-
-export default store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

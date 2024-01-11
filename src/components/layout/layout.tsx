@@ -2,7 +2,8 @@ import style from './index.module.scss';
 import Footer from '@/components/layout/components/footer';
 import Content from '@/components/layout/components/content';
 import Header from '@/components/layout/components/header';
-import CModal from '../cModal';
+import Modal from '../modal';
+
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -12,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Content className={style.layout__content}>{children}</Content>
                 <Footer className={style.layout__footer} />
             </div>
-            <CModal></CModal>
+            <Modal></Modal>
         </>
     );
 }

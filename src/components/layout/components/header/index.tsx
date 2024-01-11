@@ -7,6 +7,9 @@ import { classNames } from '@/utils/commonUtils';
 import siteConfig from '@/configs/siteConfig';
 import RouterLink from '@/components/routerLink';
 import { routers } from '@/data/routers';
+import { Layout } from 'antd';
+
+const AntHeader = Layout.Header;
 
 interface IHeaderProps {
     className?: string;
@@ -14,7 +17,7 @@ interface IHeaderProps {
 
 export default function Header({ className = '' }: IHeaderProps) {
     return (
-        <div className={classNames(style.header, className)}>
+        <AntHeader className={classNames(style.header, className)}>
             <div className={style.header__title}>
                 <Image
                     className={style.header__icon}
@@ -25,7 +28,7 @@ export default function Header({ className = '' }: IHeaderProps) {
                 />
                 <div className={style.header__text}>{siteData.name}</div>
             </div>
-            <RouterLink routers={routers}/>
-        </div>
+            <RouterLink routers={routers} />
+        </AntHeader>
     );
 }

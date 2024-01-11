@@ -1,8 +1,0 @@
-@import '/src/styles/common.scss';
-
-.sideBar {
-    position: sticky;
-    top: calc($headerHeight + 16px);
-    width: 19.1%;
-    height: calc(100vh - $headerHeight - 32px);
-}

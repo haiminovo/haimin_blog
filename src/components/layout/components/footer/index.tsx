@@ -2,17 +2,17 @@ import React from 'react';
 import style from './index.module.scss';
 import Image from 'next/image';
 import { classNames } from '@/utils/commonUtils';
-import siteConfig from '@/config/siteConfig';
+import siteConfig from '@/configs/siteConfig';
+import { Divider, Layout } from 'antd';
 
+const AntFooter = Layout.Footer;
 interface IFooterProps {
     className?: string;
 }
 
 export default function Footer({ className = '' }: IFooterProps) {
     return (
-        <>
-            <div className={classNames(style.footer, className)}>
-                <div className={style.footer__cutLine} />
+            <AntFooter className={classNames(style.footer, className)}>
                 <div className={style.footer__links}>
                     <a
                         className={style.footer__link}
@@ -33,7 +33,6 @@ export default function Footer({ className = '' }: IFooterProps) {
                         浙ICP备2021034756号
                     </a>
                 </div>
-            </div>
-        </>
+            </AntFooter>
     );
 }

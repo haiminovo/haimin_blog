@@ -1,4 +1,5 @@
-import Layout from '@/components/layout/layout';
+
+import Layout from '@/components/layout';
 import { useRouter } from 'next/router';
 
 export default function ArticalPage() {

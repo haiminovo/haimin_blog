@@ -1,9 +1,9 @@
-import Layout from '@/components/layout';
 import getArticalsMockData, { IArticalsData } from '@/data/mock/articalsMockData';
 import style from './artical.module.scss';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import siteConfig from '@/configs/siteConfig';
+import Layout from '@/components/layout';
 
 export default function ArticalsPage() {
     const [articalsData, setArticalsData] = useState<IArticalsData[]>([]);

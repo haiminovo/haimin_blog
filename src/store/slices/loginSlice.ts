@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface LoginState {
-    isShowLogin: boolean;
+    showLogin: boolean;
 }
 
 const initialState: LoginState = {
-    isShowLogin: true,
+    showLogin: false,
 };
 
 export const loginSlice = createSlice({
@@ -14,11 +14,11 @@ export const loginSlice = createSlice({
     initialState,
     reducers: {
         setShowLogin: (state,action) => {
-            state.isShowLogin = action.payload;
+            state.showLogin = action.payload;
         },
     },
 });
 
 export const { setShowLogin } = loginSlice.actions;
 
-export default loginSlice.reducer;
+export default loginSlice;

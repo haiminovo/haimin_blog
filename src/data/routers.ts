@@ -27,8 +27,6 @@ export const routers: IRouter[] = [
     {
         name: '登录',
         link: '',
-        onClick:()=>{store.dispatch(setShowLogin(true));console.log(store.getState().login);
-        
-        }
+        onClick:()=>{store.dispatch(setShowLogin(true));}
     },
 ];

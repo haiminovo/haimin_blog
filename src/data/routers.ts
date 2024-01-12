@@ -1,10 +1,10 @@
-import { store } from "@/store";
-import { setShowLogin } from "@/store/slices/loginSlice";
-import { Url } from "next/dist/shared/lib/router/router";
+import { store } from '@/store';
+import { setShowLogin } from '@/store/slices/loginSlice';
+import { Url } from 'next/dist/shared/lib/router/router';
 export interface IRouter {
     name: string;
     link: Url;
-    onClick?:()=>void;
+    onClick?: () => void;
 }
 
 export const routers: IRouter[] = [
@@ -27,6 +27,8 @@ export const routers: IRouter[] = [
     {
         name: '登录',
         link: '',
-        onClick:()=>{store.dispatch(setShowLogin(true));}
+        onClick: () => {
+            store.dispatch(setShowLogin(true));
+        },
     },
 ];

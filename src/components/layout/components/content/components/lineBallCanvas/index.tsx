@@ -88,8 +88,6 @@ export default function LineBallCanvas() {
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
     const handleResize = () => {
-        console.log(canvasBox);
-
         setHeight(canvasBox.current.clientHeight);
         setWidth(canvasBox.current.clientWidth);
         initCanvas(canvas, width, height);

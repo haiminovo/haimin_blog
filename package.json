@@ -10,8 +10,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
-    "antd": "^5.12.2",
-    "antd-style": "^3.6.1",
+    "antd": "4",
     "lodash": "^4.17.21",
     "next": "14.0.2",
     "react": "^18",

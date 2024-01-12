@@ -1,4 +1,4 @@
-import Layout from '@/components/layout/layout';
+import Layout from '@/components/layout';
 import ReactQuillEditor from '@/components/quillEditor';
 import style from './edit.module.scss';
 import { useState } from 'react';

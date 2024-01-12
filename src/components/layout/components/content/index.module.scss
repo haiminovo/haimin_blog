@@ -2,15 +2,16 @@
 
 .content {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     height: 100%;
-    padding: 16px;
+    padding: 16px 16px 0 16px;
     gap: 8px;
     border: 2px;
 
     &__children {
         height: 100%;
-        width: 61.8%;
+        width: 100%;
         background-color: $lightBgColor;
         border: 1px solid $borderColor;
     }

@@ -1,4 +1,4 @@
-import Layout from '@/components/layout/layout';
+import Layout from '@/components/layout';
 import getArticalsMockData, { IArticalsData } from '@/data/mock/articalsMockData';
 import style from './artical.module.scss';
 import Image from 'next/image';

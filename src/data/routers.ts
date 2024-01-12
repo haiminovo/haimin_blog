@@ -1,5 +1,5 @@
 import { store } from "@/store";
-import { showLogin } from "@/store/slices/loginSlice";
+import { setShowLogin } from "@/store/slices/loginSlice";
 import { Url } from "next/dist/shared/lib/router/router";
 export interface IRouter {
     name: string;
@@ -27,6 +27,8 @@ export const routers: IRouter[] = [
     {
         name: '登录',
         link: '',
-        onClick:()=>{store.dispatch(showLogin());}
+        onClick:()=>{store.dispatch(setShowLogin(true));console.log(store.getState().login);
+        
+        }
     },
 ];

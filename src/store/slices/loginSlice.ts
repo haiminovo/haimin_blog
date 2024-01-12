@@ -6,22 +6,19 @@ export interface LoginState {
 }
 
 const initialState: LoginState = {
-    isShowLogin: false,
+    isShowLogin: true,
 };
 
 export const loginSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
-        showLogin: (state) => {
-            state.isShowLogin = true;
-        },
-        unShowLogin: (state) => {
-            state.isShowLogin = false;
+        setShowLogin: (state,action) => {
+            state.isShowLogin = action.payload;
         },
     },
 });
 
-export const { showLogin, unShowLogin } = loginSlice.actions;
+export const { setShowLogin } = loginSlice.actions;
 
 export default loginSlice.reducer;

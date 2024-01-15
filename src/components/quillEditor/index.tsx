@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ReactQuill from 'react-quill';
 
 interface IQuillEditorProps {
@@ -27,5 +26,5 @@ export default function ReactQuillEditor({ className, value, onChange }: IQuillE
     const modules: any = {
         toolbar: toolbarOptions,
     };
-    return <ReactQuill value={value} modules={modules} className={className} theme="snow" onChange={onChange} />;
+    return <ReactQuill value={value} modules={modules} className={className} theme="snow" onChange={onChange}/>;
 }

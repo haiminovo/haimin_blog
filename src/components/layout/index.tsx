@@ -3,7 +3,7 @@ import Footer from '@/components/layout/components/footer';
 import Content from '@/components/layout/components/content';
 import Header from '@/components/layout/components/header';
 
-import { Layout as AntLayout, Checkbox, Form, Input, Modal } from 'antd';
+import { Layout as AntLayout } from 'antd';
 import LoginModal from '../loginModal';
 
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -3,7 +3,7 @@ import { Checkbox, Form, Input, Modal } from 'antd';
 import { AppState, store } from '@/store';
 import { setShowLogin } from '@/store/slices/loginSlice';
 import { useSelector } from 'react-redux';
-import { loginApi } from '@/api/login';
+import { adminLogin } from '@/api/admin';
 
 export default function LoginModal() {
     let showModal = useSelector((state: AppState) => {
@@ -21,7 +21,7 @@ export default function LoginModal() {
             }}
             onOk={async ()=>{
                 console.log('params',form.getFieldsValue());
-                const res=await loginApi(form.getFieldsValue())
+                const res=await adminLogin(form.getFieldsValue())
                 console.log(res);
                 
             }}

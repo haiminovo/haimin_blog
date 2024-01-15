@@ -6,7 +6,9 @@ import '@/styles/globals.scss';
 import 'react-quill/dist/quill.snow.css';
 import { Provider } from 'react-redux';
 
+
 export default function MyApp({ Component, pageProps }: any) {
+
     return (
         <Provider store={store}>
             <Component {...pageProps} />

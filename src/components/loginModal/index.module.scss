@@ -1,5 +1,9 @@
 @import '/src/styles/common.scss';
 
-.LoginModal{
-
+.LoginModal {
+    &__form {
+        .form__alert {
+            margin-top: 16px;
+        }
+    }
 }

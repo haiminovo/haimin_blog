@@ -6,10 +6,10 @@ import Layout from '@/components/layout';
 import Tags from '@/components/tags';
 import UploadImage from './components/uploadImage';
 import dynamic from 'next/dynamic';
-const ReactQuillEditor = dynamic(import('@/components/quillEditor'), { ssr: false,});
+const ReactQuillEditor = dynamic(import('@/components/quillEditor'), { ssr: false });
 
 export default function EditPage() {
-    const [value, setValue] = useState('');
+    const [form] = Form.useForm();
     // 剩下参数 delta: DeltaStatic, source: Sources, editor: ReactQuill.UnprivilegedEditor
 
     interface Option {
@@ -17,6 +17,8 @@ export default function EditPage() {
         label: string;
         children?: Option[];
     }
+
+    
 
     const options: Option[] = [
         {
@@ -52,39 +54,27 @@ export default function EditPage() {
             ],
         },
     ];
-    const handleChangeValue = (value: string) => {
-        setValue(value);
-        console.log(value);
-    };
-
     const handleClickSubmit = () => {
-        fetch('127.0.0.1:5000/api/v1/article', {
-            method: 'post',
-            body: JSON.stringify({}),
-        }).then((res) => {
-            console.log(res);
-        });
+        console.log(form.getFieldsValue());
     };
 
     return (
         <Layout>
             <div className={style.edit}>
-                <Form className={style.edit__form}>
+                <Form form={form} className={style.edit__form}>
                     <Form.Item label="标题" name="title">
                         <Input placeholder="文章标题" />
                     </Form.Item>
                     <Form.Item label="简介" name="description">
                         <Input placeholder="文章简介" />
                     </Form.Item>
-                    <Form.Item label="标签" name="keyword">
+                    <Form.Item label="标签" name="seo_keyword">
                         <Tags></Tags>
                     </Form.Item>
-                    <Form.Item label="内容">
+                    <Form.Item label="内容" name="content">
                         {typeof window !== 'undefined' && (
                             <ReactQuillEditor
                                 className={style.form__quillEditor}
-                                value={value}
-                                onChange={debounce(handleChangeValue, 500)}
                             ></ReactQuillEditor>
                         )}
                     </Form.Item>
@@ -95,10 +85,10 @@ export default function EditPage() {
                         <Cascader options={options} placeholder="Please select" placement="bottomRight" />
                     </Form.Item>
                     <div className={style.form__buttonGroup}>
-                        <Button type="default" onClick={handleClickSubmit}>
-                            Primary Button
+                        <Button type="default">暂存</Button>
+                        <Button type="primary" onClick={handleClickSubmit}>
+                            发布
                         </Button>
-                        <Button type="primary">Primary Button</Button>
                     </div>
                 </Form>
             </div>

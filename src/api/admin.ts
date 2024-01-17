@@ -8,7 +8,7 @@ interface IAdminRegisterParams {
     password1: string;
     password2: string;
 }
-export const adminRegister = async (params: IAdminRegisterParams) => {
+export const adminRegister = async (params: BodyInit & IAdminRegisterParams) => {
     const res = await customFetch(siteData.serverURL + '/admin/register', 'POST', JSON.stringify(params));
     return res;
 };
@@ -17,8 +17,8 @@ interface IAdminLoginParams {
     email: string;
     password: string;
 }
-export const adminLogin = async (params: IAdminLoginParams) => {
-    const res = await customFetch(siteData.serverURL + '/admin/login', 'POST', JSON.stringify(params));
+export const adminLogin = async (params: BodyInit & IAdminLoginParams) => {
+    const res = await customFetch(siteData.serverURL + '/admin/login', 'POST', params);
     return res;
 };
 

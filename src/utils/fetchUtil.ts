@@ -1,5 +1,18 @@
 import siteData from '@/data/siteData';
 
+export interface IFetchRes {
+    msg: string;
+    errorCode: number;
+    err?: IErr;
+    data?: any;
+}
+
+export interface IErr {
+    errorCode: number;
+    code: number;
+    msg: string;
+}
+
 export const customFetch = (
     url: string = siteData.serverURL,
     method: string = 'GET',
@@ -9,7 +22,7 @@ export const customFetch = (
     const options: RequestInit = {
         method,
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;charset=utf-8',
             ...headers,
         },
     };
@@ -20,9 +33,6 @@ export const customFetch = (
 
     return fetch(url, options)
         .then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
             return response.json();
         })
         .catch((error) => {

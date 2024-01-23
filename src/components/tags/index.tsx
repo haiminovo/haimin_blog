@@ -4,15 +4,23 @@ import type { InputRef } from 'antd';
 import { Input, Space, Tag, theme, Tooltip } from 'antd';
 import { getRandomColor } from '@/utils/commonUtils';
 
-export default function Tags() {
+interface IProps{
+    onChange: (tags: string[]) => void
+}
+
+export const Tags=({onChange}:IProps)=> {
     const { token } = theme.useToken();
-    const [tags, setTags] = useState(['Unremovable', 'Tag 2', 'Tag 3']);
+    const [tags, setTags] = useState<string[]>([]);
     const [inputVisible, setInputVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [editInputIndex, setEditInputIndex] = useState(-1);
     const [editInputValue, setEditInputValue] = useState('');
     const inputRef = useRef<InputRef>(null);
     const editInputRef = useRef<InputRef>(null);
+
+    useEffect(() => {
+        onChange(tags);
+    }, [tags]);
 
     useEffect(() => {
         if (inputVisible) {
@@ -26,7 +34,6 @@ export default function Tags() {
 
     const handleClose = (removedTag: string) => {
         const newTags = tags.filter((tag) => tag !== removedTag);
-        console.log(newTags);
         setTags(newTags);
     };
 
@@ -72,7 +79,7 @@ export default function Tags() {
     };
 
     return (
-        <Space size={[0, 8]} wrap>
+        <div>
             {tags.map((tag, index) => {
                 if (editInputIndex === index) {
                     return (
@@ -90,13 +97,7 @@ export default function Tags() {
                 }
                 const isLongTag = tag.length > 20;
                 const tagElem = (
-                    <Tag
-                        key={tag}
-                        closable={index !== 0}
-                        style={{ userSelect: 'none' }}
-                        // color={getRandomColor()}
-                        onClose={() => handleClose(tag)}
-                    >
+                    <Tag key={tag} closable={true} style={{ userSelect: 'none' }} onClose={() => handleClose(tag)}>
                         <span
                             onDoubleClick={(e) => {
                                 if (index !== 0) {
@@ -131,9 +132,9 @@ export default function Tags() {
                 />
             ) : (
                 <Tag style={tagPlusStyle} icon={<PlusOutlined />} onClick={showInput}>
-                    New Tag
+                    添加
                 </Tag>
             )}
-        </Space>
+        </div>
     );
 }

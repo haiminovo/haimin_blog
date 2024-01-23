@@ -14,7 +14,7 @@ export const routers: IRouter[] = [
     },
     {
         name: '文章',
-        link: '/artical',
+        link: '/article',
     },
     {
         name: '创作',

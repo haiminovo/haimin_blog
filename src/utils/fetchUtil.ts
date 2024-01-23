@@ -1,4 +1,5 @@
 import siteData from '@/data/siteData';
+import { base64Encode } from './commonUtils';
 
 export interface IFetchRes {
     msg: string;
@@ -23,7 +24,8 @@ export const customFetch = (
         method,
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            ...headers,
+            'Authorization': `${'Basic ' + base64Encode(localStorage.getItem('token') + ':')}`,
+            ...headers
         },
     };
 

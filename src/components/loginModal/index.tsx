@@ -1,14 +1,17 @@
 import style from './index.module.scss';
-import { Alert, Checkbox, CheckboxProps, Form, Input, Modal } from 'antd';
+import { Alert, Checkbox, CheckboxProps, Form, Input, Modal, Tabs } from 'antd';
 import { AppState, store } from '@/store';
 import { setShowLogin } from '@/store/slices/loginSlice';
 import { useSelector } from 'react-redux';
 import { adminLogin } from '@/api/admin';
 import { useState } from 'react';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { CheckSquareOutlined, LockOutlined, PlusSquareOutlined, UserOutlined } from '@ant-design/icons';
 import { setCookie } from '@/utils/cookieUtil';
+import { size } from 'lodash';
+import { userLogin, userRegister } from '@/api/user';
 
 export default function LoginModal() {
+    const [type,setType]=useState('登录');
     let showModal = useSelector((state: AppState) => {
         return state.login.showLogin;
     });
@@ -24,12 +27,12 @@ export default function LoginModal() {
 
     const handleLogin = async () => {
         const formValue = form.getFieldsValue();
-        const res = await adminLogin(formValue);
+        const res = await userLogin(formValue);
         if (res) {
             setFetchDone(true);
             if (res.errorCode === 0) {
                 setLoginError(undefined);
-                setCookie('token',res.data?.token);
+                setCookie('token', res.data?.token);
                 setTimeout(() => {
                     store.dispatch(setShowLogin(false));
                 }, 200);
@@ -38,6 +41,68 @@ export default function LoginModal() {
             }
         }
     };
+
+    const handleRegister = async () => {
+        const formValue = form.getFieldsValue();
+        const res = await userRegister(formValue);
+        if (res) {
+            setFetchDone(true);
+            if (res.errorCode === 0) {
+                setLoginError(undefined);
+                setCookie('token', res.data?.token);
+                setTimeout(() => {
+                    store.dispatch(setShowLogin(false));
+                }, 200);
+            } else {
+                setLoginError(res.msg?.toLocaleString());
+            }
+        }
+    };
+
+    const onTabChange = (key: string) => {
+        setType(key);
+    };
+
+    const loginForm = (
+        <Form className={style.LoginModal__form} name="login" form={form} validateTrigger="onBlur">
+            <Form.Item name="email" rules={[{ required: true, message: '' }]} initialValue={null}>
+                <Input placeholder="请输入邮箱" allowClear />
+            </Form.Item>
+            <Form.Item name="password" rules={[{ required: true, message: '' }]} initialValue={null}>
+                <Input placeholder="请输入密码" allowClear />
+            </Form.Item>
+            <Checkbox onChange={handleRemeberMeChange}>记住我</Checkbox>
+            {fetchDone ? (
+                loginError ? (
+                    <Alert className={style.form__alert} message={loginError} type="error" showIcon />
+                ) : (
+                    <Alert className={style.form__alert} message="登陆成功" type="success" showIcon />
+                )
+            ) : null}
+        </Form>
+    );
+
+    const registerForm = (
+        <Form className={style.LoginModal__form} name="login" form={form} validateTrigger="onBlur">
+            <Form.Item name="email" rules={[{ required: true, message: '' }]} initialValue={null}>
+                <Input placeholder="请输入邮箱" allowClear />
+            </Form.Item>
+            <Form.Item name="password1" rules={[{ required: true, message: '' }]} initialValue={null}>
+                <Input placeholder="请输入密码" allowClear />
+            </Form.Item>
+            <Form.Item name="password2" rules={[{ required: true, message: '' }]} initialValue={null}>
+                <Input placeholder="请重复密码" allowClear />
+            </Form.Item>
+            <Checkbox onChange={handleRemeberMeChange}>记住我</Checkbox>
+            {fetchDone ? (
+                loginError ? (
+                    <Alert className={style.form__alert} message={loginError} type="error" showIcon />
+                ) : (
+                    <Alert className={style.form__alert} message="登陆成功" type="success" showIcon />
+                )
+            ) : null}
+        </Form>
+    );
 
     return (
         <Modal
@@ -51,31 +116,23 @@ export default function LoginModal() {
             okText={'登录'}
             onOk={handleLogin}
         >
-            <Form className={style.LoginModal__form} name="login" form={form} validateTrigger="onBlur">
-                <h2>登录</h2>
-                <Form.Item name="email" rules={[{ required: true, message: '' }]} initialValue={null}>
-                    <Input
-                        prefix={<UserOutlined className="site-form-item-icon" />}
-                        placeholder="请输入邮箱"
-                        allowClear
-                    />
-                </Form.Item>
-                <Form.Item name="password" rules={[{ required: true, message: '' }]} initialValue={null}>
-                    <Input
-                        prefix={<LockOutlined type="password" className="site-form-item-icon" />}
-                        placeholder="请输入密码"
-                        allowClear
-                    />
-                </Form.Item>
-                <Checkbox onChange={handleRemeberMeChange}>记住我</Checkbox>
-                {fetchDone ? (
-                    loginError ? (
-                        <Alert className={style.form__alert} message={loginError} type="error" showIcon />
-                    ) : (
-                        <Alert className={style.form__alert} message="登陆成功" type="success" showIcon />
-                    )
-                ) : null}
-            </Form>
+            <Tabs
+                onChange={onTabChange}
+                size="large"
+                animated
+                items={[
+                    {
+                        label: `登录`,
+                        key: '登录',
+                        children: loginForm,
+                    },
+                    {
+                        label: `注册`,
+                        key: '注册',
+                        children: registerForm,
+                    },
+                ]}
+            />
         </Modal>
     );
 }

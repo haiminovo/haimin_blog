@@ -3,15 +3,11 @@ import { Alert, Checkbox, CheckboxProps, Form, Input, Modal, Tabs } from 'antd';
 import { AppState, store } from '@/store';
 import { setShowLogin } from '@/store/slices/loginSlice';
 import { useSelector } from 'react-redux';
-import { adminLogin } from '@/api/admin';
 import { useState } from 'react';
-import { CheckSquareOutlined, LockOutlined, PlusSquareOutlined, UserOutlined } from '@ant-design/icons';
-import { setCookie } from '@/utils/cookieUtil';
-import { size } from 'lodash';
 import { userLogin, userRegister } from '@/api/user';
 
 export default function LoginModal() {
-    const [type,setType]=useState('登录');
+    const [type, setType] = useState('登录');
     let showModal = useSelector((state: AppState) => {
         return state.login.showLogin;
     });
@@ -25,31 +21,15 @@ export default function LoginModal() {
         setRemeberMe(e.target.value);
     };
 
-    const handleLogin = async () => {
+    const handleModalSubmit = async () => {
+        setButtonLoading(true);
         const formValue = form.getFieldsValue();
-        const res = await userLogin(formValue);
+        const res = await (type==='登录'?userLogin(formValue):userRegister(formValue));
         if (res) {
             setFetchDone(true);
+            setButtonLoading(false);
             if (res.errorCode === 0) {
                 setLoginError(undefined);
-                setCookie('token', res.data?.token);
-                setTimeout(() => {
-                    store.dispatch(setShowLogin(false));
-                }, 200);
-            } else {
-                setLoginError(res.msg?.toLocaleString());
-            }
-        }
-    };
-
-    const handleRegister = async () => {
-        const formValue = form.getFieldsValue();
-        const res = await userRegister(formValue);
-        if (res) {
-            setFetchDone(true);
-            if (res.errorCode === 0) {
-                setLoginError(undefined);
-                setCookie('token', res.data?.token);
                 setTimeout(() => {
                     store.dispatch(setShowLogin(false));
                 }, 200);
@@ -84,6 +64,9 @@ export default function LoginModal() {
 
     const registerForm = (
         <Form className={style.LoginModal__form} name="login" form={form} validateTrigger="onBlur">
+            <Form.Item name="username" rules={[{ required: true, message: '' }]} initialValue={null}>
+                <Input placeholder="请输入用户名" allowClear />
+            </Form.Item>
             <Form.Item name="email" rules={[{ required: true, message: '' }]} initialValue={null}>
                 <Input placeholder="请输入邮箱" allowClear />
             </Form.Item>
@@ -98,7 +81,7 @@ export default function LoginModal() {
                 loginError ? (
                     <Alert className={style.form__alert} message={loginError} type="error" showIcon />
                 ) : (
-                    <Alert className={style.form__alert} message="登陆成功" type="success" showIcon />
+                    <Alert className={style.form__alert} message="注册成功" type="success" showIcon />
                 )
             ) : null}
         </Form>
@@ -114,7 +97,8 @@ export default function LoginModal() {
                 store.dispatch(setShowLogin(false));
             }}
             okText={'登录'}
-            onOk={handleLogin}
+            confirmLoading={buttonLoading}
+            onOk={handleModalSubmit}
         >
             <Tabs
                 onChange={onTabChange}

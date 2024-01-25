@@ -19,7 +19,10 @@ interface IAdminLoginParams {
 }
 export const adminLogin = async (params: BodyInit & IAdminLoginParams) => {
     const res = await customFetch(siteData.serverURL + '/admin/login', 'POST', params);
-    localStorage.setItem('token',res.data.token);
+    if(res.coed===200){
+        localStorage.setItem('token',res.data.token);
+    }
+    
     return res;
 };
 

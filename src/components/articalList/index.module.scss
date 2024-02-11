@@ -3,7 +3,6 @@
 .articles {
     display: flex;
     flex-direction: column;
-
     .article {
         padding: 16px 16px 0 16px;
 
@@ -39,6 +38,12 @@
                     .articleBox__inf {
                         display: flex;
                         gap: 16px;
+                        .articleBox__info {
+                            display: flex;
+                            align-items: center;
+                            gap: 4px;
+                            line-height: 16px;
+                        }
                     }
 
                     .articleBox__tags {
@@ -62,7 +67,10 @@
         }
 
         &:hover {
-            background-color: $midBgColor;
+            box-shadow: 8px 0px rgba(0, 0, 0, 0.2);
         }
+    }
+    div.article:nth-of-type(2n) {
+        background-color: $midBgColor;
     }
 }

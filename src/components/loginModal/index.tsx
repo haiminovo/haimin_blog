@@ -5,6 +5,7 @@ import { setShowLogin } from '@/store/slices/loginSlice';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { userLogin, userRegister } from '@/api/user';
+import { adminLogin, adminRegister } from '@/api/admin';
 
 export default function LoginModal() {
     const [type, setType] = useState('登录');
@@ -13,18 +14,22 @@ export default function LoginModal() {
     });
 
     const [form] = Form.useForm();
-    const [rememberMe, setRemeberMe] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     const [buttonLoading, setButtonLoading] = useState(false);
     const [fetchDone, setFetchDone] = useState<boolean | undefined>(undefined);
     const [loginError, setLoginError] = useState<string | undefined>(undefined);
-    const handleRemeberMeChange: CheckboxProps['onChange'] = (e) => {
-        setRemeberMe(e.target.value);
+
+    const handleIsAdminChange: CheckboxProps['onChange'] = (e) => {
+        setIsAdmin(e.target.checked);
     };
 
     const handleModalSubmit = async () => {
         setButtonLoading(true);
         const formValue = form.getFieldsValue();
-        const res = await (type==='登录'?userLogin(formValue):userRegister(formValue));
+        const loginFunc = isAdmin ? adminLogin : userLogin;
+        const registerFunc = isAdmin ? adminRegister : userRegister;
+        const request = type === '登录' ? loginFunc(formValue) : registerFunc(formValue);
+        const res = await request;
         if (res) {
             setFetchDone(true);
             setButtonLoading(false);
@@ -51,7 +56,7 @@ export default function LoginModal() {
             <Form.Item name="password" rules={[{ required: true, message: '' }]} initialValue={null}>
                 <Input placeholder="请输入密码" allowClear />
             </Form.Item>
-            <Checkbox onChange={handleRemeberMeChange}>记住我</Checkbox>
+            <Checkbox onChange={handleIsAdminChange}>管理员</Checkbox>
             {fetchDone ? (
                 loginError ? (
                     <Alert className={style.form__alert} message={loginError} type="error" showIcon />
@@ -76,7 +81,7 @@ export default function LoginModal() {
             <Form.Item name="password2" rules={[{ required: true, message: '' }]} initialValue={null}>
                 <Input placeholder="请重复密码" allowClear />
             </Form.Item>
-            <Checkbox onChange={handleRemeberMeChange}>记住我</Checkbox>
+            <Checkbox onChange={handleIsAdminChange}>记住我</Checkbox>
             {fetchDone ? (
                 loginError ? (
                     <Alert className={style.form__alert} message={loginError} type="error" showIcon />

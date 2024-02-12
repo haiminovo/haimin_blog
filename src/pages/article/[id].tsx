@@ -50,7 +50,7 @@ export default function ArticlePage() {
         <Layout>
             <div>article{id}</div>
             <div>{articleData?.admin_id}</div>
-            <div>{articleData?.admin_info}</div>
+            <div>{articleData?.admin_info+''}</div>
             <div>{articleData?.browse}</div>
             <div>{articleData?.category_id}</div>
             <div>{articleData?.category_info+''}</div>

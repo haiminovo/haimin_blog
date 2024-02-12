@@ -41,7 +41,7 @@ export default function ArticalList({ articlesData }: IProps) {
                                         {tags.length > 0 &&
                                             tags?.map((tag, index) => {
                                                 return (
-                                                    tag && (
+                                                    tag.trim() && (
                                                         <span className={style.articleBox__tag} key={index}>
                                                             {tag}
                                                         </span>

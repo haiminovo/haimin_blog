@@ -19,13 +19,13 @@ interface IUserLoginParams {
 }
 export const userLogin = async (params: BodyInit & IUserLoginParams) => {
     const res = await customFetch(siteData.serverURL + '/user/login', 'POST', params);
-    localStorage.setItem('token',res.data.token);
+    localStorage.setItem('userInf',encodeURIComponent(JSON.stringify(res.data)));
     return res;
 };
 
 export const userAuth = async () => {
     const res = await customFetch(siteData.serverURL + '/user/auth', 'POST', null, {
-        Authorization: `${'Basic ' + base64Encode(localStorage.getItem('token') + ':')}`,
+        'Authorization': `${'Basic ' + base64Encode(JSON.parse(decodeURIComponent(localStorage.getItem('userInf')||'null'))?.token + ':')}`,
     });
     return res;
 };

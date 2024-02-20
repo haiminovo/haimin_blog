@@ -1,9 +1,7 @@
 @import '/src/styles/common.scss';
 
 .layout {
-    height: 100%;
     position: relative;
-
     &__header {
         position: sticky;
         top: 0;

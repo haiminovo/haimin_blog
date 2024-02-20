@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import type { InputRef } from 'antd';
-import { Input, Space, Tag, theme, Tooltip } from 'antd';
-import { getRandomColor } from '@/utils/commonUtils';
+import { Input, Tag, theme, Tooltip } from 'antd';
 
 interface IProps{
     onChange: (tags: string[]) => void

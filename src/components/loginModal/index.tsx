@@ -1,7 +1,7 @@
 import style from './index.module.scss';
 import { Alert, Checkbox, CheckboxProps, Form, Input, Modal, Tabs } from 'antd';
 import { AppState, store } from '@/store';
-import { setShowLogin } from '@/store/slices/loginSlice';
+import { setIsLogged, setShowLogin } from '@/store/slices/loginSlice';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { userLogin, userRegister } from '@/api/user';
@@ -30,8 +30,9 @@ export default function LoginModal() {
         const registerFunc = isAdmin ? adminRegister : userRegister;
         const request = type === '登录' ? loginFunc(formValue) : registerFunc(formValue);
         const res = await request;
-        if (res) {
-            setFetchDone(true);
+        if (res?.code === 200) {
+            // redux派发已登录状态
+            store.dispatch(setIsLogged(true));
             setButtonLoading(false);
             if (res.errorCode === 0) {
                 setLoginError(undefined);
@@ -42,6 +43,7 @@ export default function LoginModal() {
                 setLoginError(res.msg?.toLocaleString());
             }
         }
+        setFetchDone(true);
     };
 
     const onTabChange = (key: string) => {

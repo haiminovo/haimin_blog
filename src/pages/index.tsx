@@ -1,4 +1,5 @@
 import Layout from '@/components/layout';
+import LineBallCanvas from '@/components/lineBallCanvas';
 
 export default function Home() {
     return (
@@ -12,6 +13,7 @@ export default function Home() {
                     flexDirection: 'column',
                 }}
             >
+                            <LineBallCanvas></LineBallCanvas>
                 <div style={{ width: '100%', height: '100vh' }}>123</div>
             </div>
         </Layout>

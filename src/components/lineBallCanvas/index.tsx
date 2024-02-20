@@ -83,22 +83,20 @@ export default function LineBallCanvas() {
         const lineBallGraph = new Graph();
         lineBallGraph.draw();
     };
-    const canvasBox: any = useRef();
     const canvas: any = useRef();
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
-    const handleResize = () => {
-        setHeight(canvasBox.current.clientHeight);
-        setWidth(canvasBox.current.clientWidth);
-        initCanvas(canvas, width, height);
-    };
     const handleMouseMove = (e: any) => {};
     useEffect(() => {
-        handleResize();
-    }, [canvasBox.current]);
+        setHeight(document.documentElement.clientHeight);
+        setWidth(document.documentElement.clientWidth);
+    }, []);
+    useEffect(() => {
+        initCanvas(canvas, width, height);
+    }, [width, height]);
 
     return (
-        <div ref={canvasBox} className={style.canvasBox}>
+        <div className={style.canvasBox}>
             <canvas width={width} height={height} ref={canvas} onMouseMove={handleMouseMove} />
         </div>
     );

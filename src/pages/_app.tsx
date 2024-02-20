@@ -5,13 +5,17 @@ import '@/styles/globals.scss';
 // react-quill 富文本依赖样式
 import 'react-quill/dist/quill.snow.css';
 import { Provider } from 'react-redux';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 
 
 export default function MyApp({ Component, pageProps }: any) {
-
+    const persistor = persistStore(store);
     return (
         <Provider store={store}>
-            <Component {...pageProps} />
+            <PersistGate loading={null} persistor={persistor}>
+                <Component {...pageProps} />
+            </PersistGate>
         </Provider>
     );
 }

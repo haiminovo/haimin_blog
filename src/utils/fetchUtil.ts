@@ -24,7 +24,7 @@ export const customFetch = (
         method,
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            'Authorization': `${'Basic ' + base64Encode(localStorage.getItem('token') + ':')}`,
+            'Authorization': `${'Basic ' + base64Encode(JSON.parse(decodeURIComponent(localStorage.getItem('userInf')||'null'))?.token + ':')}`,
             ...headers
         },
     };
@@ -32,7 +32,6 @@ export const customFetch = (
     if (data) {
         options.body = JSON.stringify(data);
     }
-
     return fetch(url, options)
         .then((response) => {
             return response.json();

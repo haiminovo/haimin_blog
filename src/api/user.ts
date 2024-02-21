@@ -19,13 +19,27 @@ interface IUserLoginParams {
 }
 export const userLogin = async (params: BodyInit & IUserLoginParams) => {
     const res = await customFetch(siteData.serverURL + '/user/login', 'POST', params);
-    localStorage.setItem('userInf',encodeURIComponent(JSON.stringify(res.data)));
+    localStorage.setItem(
+        'userInf',
+        //encodeURIComponent(
+        JSON.stringify(res.data)
+        //    )
+    );
     return res;
 };
 
 export const userAuth = async () => {
     const res = await customFetch(siteData.serverURL + '/user/auth', 'POST', null, {
-        'Authorization': `${'Basic ' + base64Encode(JSON.parse(decodeURIComponent(localStorage.getItem('userInf')||'null'))?.token + ':')}`,
+        Authorization: `${
+            'Basic ' +
+            base64Encode(
+                JSON.parse(
+                    //decodeURIComponent(
+                    localStorage.getItem('userInf') || 'null'
+                    //   )
+                )?.token + ':'
+            )
+        }`,
     });
     return res;
 };
@@ -41,7 +55,6 @@ export const getUserDetail = async (params?: BodyInit & IUserLoginParams) => {
     return res;
 };
 
-
 export const deleteUser = async (params?: BodyInit & IUserLoginParams) => {
     const res = await customFetch(siteData.serverURL + '/user/delete/:id', 'GET', params);
     return res;
@@ -51,5 +64,3 @@ export const updateUser = async (params?: BodyInit & IUserLoginParams) => {
     const res = await customFetch(siteData.serverURL + '/user/update/:id', 'GET', params);
     return res;
 };
-
-

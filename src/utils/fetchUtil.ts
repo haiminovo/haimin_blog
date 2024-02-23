@@ -15,33 +15,12 @@ export interface IErr {
 }
 
 function tokenRefreshMiddleware(response: any) {
-    if (response.status === 401) {
-        const refreshToken = localStorage.getItem('refresh_token');
-        return fetch('/api/refresh_token', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ refreshToken }),
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Refresh Token failed');
-            })
-            .then((data) => {
-                localStorage.setItem('access_token', data.access_token);
-                localStorage.setItem('refresh_token', data.refresh_token);
-                return Promise.resolve('refreshed');
-            })
-            .catch((error) => {
-                localStorage.removeItem('access_token');
-                localStorage.removeItem('refresh_token');
-                return Promise.reject(error);
-            });
+    if (response.status !== 401) return;
+    const userInf = JSON.parse(localStorage.getItem('userInf') || 'null');
+    const refreshToken = userInf?.token;
+    if(refreshToken){
+        
     }
-    return Promise.resolve('ok');
 }
 
 export const customFetch = (
@@ -50,7 +29,7 @@ export const customFetch = (
     data: BodyInit | null = null,
     headers: HeadersInit = {}
 ) => {
-    const userInf=localStorage.getItem('userInf')
+    const userInf = localStorage.getItem('userInf');
     const options: RequestInit = {
         method,
         headers: {
@@ -76,7 +55,7 @@ export const customFetch = (
         .then(async (response) => {
             const res = await response.json();
             console.log(res);
-            if(res.code===401&&)
+            tokenRefreshMiddleware(res);
             return res;
         })
         .catch((error) => {

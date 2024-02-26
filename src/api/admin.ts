@@ -43,3 +43,12 @@ export const adminAuth = async () => {
     });
     return res;
 };
+
+interface IRefreshParams {
+    id: number;
+}
+
+export const adminRefreshToken = async (params?: BodyInit & IRefreshParams) => {
+    const res = await customFetch(siteData.serverURL + '/admin/refresh', 'POST', params);
+    return res;
+}

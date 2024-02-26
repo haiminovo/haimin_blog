@@ -44,6 +44,15 @@ export const userAuth = async () => {
     return res;
 };
 
+interface IRefreshParams {
+    id: number;
+}
+
+export const userRefreshToken = async (params?: BodyInit & IRefreshParams) => {
+    const res = await customFetch(siteData.serverURL + '/user/refresh', 'POST', params);
+    return res;
+};
+
 // 管理员权限接口
 export const getUserList = async (params?: BodyInit & IUserLoginParams) => {
     const res = await customFetch(siteData.serverURL + '/user/list', 'GET', params);

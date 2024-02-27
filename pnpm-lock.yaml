@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@ant-design/cssinjs': ^1.18.4
   '@ant-design/icons': ^5.2.6
   '@reduxjs/toolkit': ^2.0.1
   '@types/lodash': ^4.14.202
@@ -26,6 +27,7 @@ specifiers:
   typescript: ^5
 
 dependencies:
+  '@ant-design/cssinjs': 1.18.4_react-dom@18.2.0+react@18.2.0
   '@ant-design/icons': 5.3.0_react-dom@18.2.0+react@18.2.0
   '@reduxjs/toolkit': 2.2.1_react-redux@9.1.0+react@18.2.0
   antd: 5.14.1_react-dom@18.2.0+react@18.2.0

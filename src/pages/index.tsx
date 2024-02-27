@@ -7,14 +7,13 @@ export default function Home() {
             <div
                 style={{
                     width: '100%',
-                    height: '100%',
                     display: 'flex',
                     alignItems: 'center',
                     flexDirection: 'column',
                 }}
             >
-                            <LineBallCanvas></LineBallCanvas>
-                <div style={{ width: '100%', height: '100vh' }}>123</div>
+                            {/* <LineBallCanvas></LineBallCanvas> */}
+                <div style={{ width: '100%', height: '100%' }}>123</div>
             </div>
         </Layout>
     );

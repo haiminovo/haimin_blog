@@ -4,7 +4,7 @@ $activeTextColor: #1d78ff;
 $activeTextColorLight: rgba(29, 120, 255, 0.7);
 $descTextColor: #8b8fa8;
 $darkerBgColor: #f0f0f0;
-$darkBgColor: #f4f8ff;
+$darkBgColor: #f5f5f5;
 $midBgColor: #fcfcfc;
 $lightBgColor: #ffffff;
 $itemTitleColor: #3d446e;
@@ -17,13 +17,18 @@ $titleFontFamily: PingFangSC-Medium, PingFang SC;
 
 $device375px: 375px;
 
+// 间隔配置
+$small:8px;
+$mid:16px;
+$big:32px;
+
 // 页面基础配置
 $headerColor: $lightBgColor;
 $headerHeight: 50px;
 $footerColor: $darkBgColor;
 $footerHeight: 40px;
 $contentColor: $darkBgColor;
-$minContentHeight: calc(100vh - $headerHeight - $footerHeight - 1px);
+$contentHeight: calc(100vh - $headerHeight - $small - $small);
 
 
 @mixin text-ellipsis {

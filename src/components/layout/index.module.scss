@@ -3,14 +3,21 @@
 .layout {
     position: relative;
     &__header {
-        position: sticky;
+        position: absolute;
         top: 0;
+        right: 0;
+        left: 0;
         height: $headerHeight;
         z-index: 999;
     }
 
     &__content {
-        min-height: $minContentHeight;
+        
+        margin-top: $headerHeight;
+        .content__children {
+            overflow-y: auto;
+            height: $contentHeight;
+        }
     }
 
     &__footer {

@@ -12,8 +12,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <LoginModal></LoginModal>
             <AntLayout className={style.layout}>
                 <Header className={style.layout__header} />
-                <Content className={style.layout__content}>{children}</Content>
-                <Footer className={style.layout__footer} />
+                <Content className={style.layout__content}>
+                    <div className={style.content__children}>{children}</div>
+                </Content>
             </AntLayout>
         </>
     );

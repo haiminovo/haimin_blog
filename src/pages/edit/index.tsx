@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import { getCategoryList } from '@/api/category';
 import { DefaultOptionType } from 'antd/es/select';
 import { createArticle } from '@/api/article';
+import { getUploadToken } from '@/api/oss';
 const ReactQuillEditor = dynamic(import('@/components/quillEditor'), { ssr: false });
 
 export default function EditPage() {
@@ -15,7 +16,7 @@ export default function EditPage() {
     const [categoryList, setCategoryList] = useState<DefaultOptionType[] | undefined>([]);
 
     const handleClickSubmit = async () => {
-        form.setFieldValue('img_url', 'http://haiminovo.cn:8088/article.svg');
+        console.log(form.getFieldValue('img_url'));
         const res = await createArticle({ admin_id: 'haimin', ...form.getFieldsValue() });
         if (res.code === 200) {
             message.success({
@@ -25,7 +26,11 @@ export default function EditPage() {
         }
     };
 
-    const initCategoryList = async () => {
+    const initPage = async () => {
+        // const OSSToken = await getUploadToken();
+        // console.log(OSSToken);
+
+
         const categoryListRes = await getCategoryList();
         setCategoryList(
             categoryListRes.data.data.map((item: any) => {
@@ -43,7 +48,7 @@ export default function EditPage() {
     };
 
     useEffect(() => {
-        initCategoryList();
+        initPage();
     }, []);
 
     return (
@@ -63,7 +68,7 @@ export default function EditPage() {
                         <ReactQuillEditor className={style.form__quillEditor}></ReactQuillEditor>
                     </Form.Item>
                     <Form.Item label="封面" name="img_url">
-                        <UploadImage></UploadImage>
+                        <UploadImage value={[]} maxCount={1} ></UploadImage>
                     </Form.Item>
                     <Form.Item
                         label="分类"

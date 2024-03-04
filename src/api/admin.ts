@@ -1,5 +1,5 @@
 import siteData from '@/data/siteData';
-import { base64Encode } from '@/utils/commonUtils';
+import { base64Encode, getLocal, setLocal } from '@/utils/commonUtils';
 import { customFetch } from '@/utils/fetchUtil';
 
 interface IAdminRegisterParams {
@@ -19,27 +19,13 @@ interface IAdminLoginParams {
 }
 export const adminLogin = async (params: BodyInit & IAdminLoginParams) => {
     const res = await customFetch(siteData.serverURL + '/admin/login', 'POST', params);
-    localStorage.setItem(
-        'userInf',
-        //encodeURIComponent(
-        JSON.stringify(res.data)
-        //    )
-    );
+    setLocal('userInf', res.data);
     return res;
 };
 
 export const adminAuth = async () => {
     const res = await customFetch(siteData.serverURL + '/admin/auth', 'POST', null, {
-        Authorization: `${
-            'Basic ' +
-            base64Encode(
-                JSON.parse(
-                    //decodeURIComponent(
-                    localStorage.getItem('userInf') || 'null'
-                    //   )
-                )?.token + ':'
-            )
-        }`,
+        Authorization: `${'Basic ' + base64Encode(getLocal('userInf')?.token + ':')}`,
     });
     return res;
 };
@@ -51,4 +37,4 @@ interface IRefreshParams {
 export const adminRefreshToken = async (params?: BodyInit & IRefreshParams) => {
     const res = await customFetch(siteData.serverURL + '/admin/refresh', 'POST', params);
     return res;
-}
+};

@@ -1,6 +1,6 @@
 import style from './edit.module.scss';
 import { useEffect, useState } from 'react';
-import { Button, Cascader, Form, Input, message } from 'antd';
+import { Button, Cascader, Form, Input, UploadFile, UploadProps, message } from 'antd';
 import Layout from '@/components/layout';
 import { Tags } from '@/components/tags';
 import UploadImage from './components/uploadImage';
@@ -8,15 +8,17 @@ import dynamic from 'next/dynamic';
 import { getCategoryList } from '@/api/category';
 import { DefaultOptionType } from 'antd/es/select';
 import { createArticle } from '@/api/article';
-import { getUploadToken } from '@/api/oss';
 const ReactQuillEditor = dynamic(import('@/components/quillEditor'), { ssr: false });
 
 export default function EditPage() {
     const [form] = Form.useForm();
     const [categoryList, setCategoryList] = useState<DefaultOptionType[] | undefined>([]);
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
 
     const handleClickSubmit = async () => {
-        console.log(form.getFieldValue('img_url'));
+        console.log('////////////');
+        
+        console.log(form.getFieldValue('img'));
         const res = await createArticle({ admin_id: 'haimin', ...form.getFieldsValue() });
         if (res.code === 200) {
             message.success({
@@ -27,10 +29,7 @@ export default function EditPage() {
     };
 
     const initPage = async () => {
-        // const OSSToken = await getUploadToken();
-        // console.log(OSSToken);
-
-
+        //  初始化分类列表
         const categoryListRes = await getCategoryList();
         setCategoryList(
             categoryListRes.data.data.map((item: any) => {
@@ -45,6 +44,11 @@ export default function EditPage() {
 
     const handleTagChange = (tags: string[]) => {
         form.setFieldValue('seo_keyword', tags.join(',') || ' ');
+    };
+
+    const handleUploadChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+        console.log(fileList);
+        setFileList(newFileList);
     };
 
     useEffect(() => {
@@ -67,8 +71,16 @@ export default function EditPage() {
                     <Form.Item label="内容" name="content">
                         <ReactQuillEditor className={style.form__quillEditor}></ReactQuillEditor>
                     </Form.Item>
-                    <Form.Item label="封面" name="img_url">
-                        <UploadImage value={[]} maxCount={1} ></UploadImage>
+                    <Form.Item
+                        label="封面"
+                        name="img"
+                        valuePropName="fileList"
+                        getValueFromEvent={(e) => {
+                            if (Array.isArray(e)) return e;
+                            return e && e.fileList;
+                        }}
+                    >
+                        <UploadImage value={fileList} onChange={handleUploadChange} maxCount={1}></UploadImage>
                     </Form.Item>
                     <Form.Item
                         label="分类"

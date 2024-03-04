@@ -1,5 +1,5 @@
 import siteData from '@/data/siteData';
-import { base64Encode } from './commonUtils';
+import { base64Encode, getLocal, setLocal } from './commonUtils';
 import { userRefreshToken } from '@/api/user';
 import { adminRefreshToken } from '@/api/admin';
 
@@ -18,17 +18,16 @@ export interface IErr {
 }
 
 async function tokenRefreshMiddleware(url: string, options: RequestInit) {
-    const userInf = JSON.parse(localStorage.getItem('userInf') || 'null');
+    const userInf = getLocal('userInf');
     const refreshToken = userInf?.token;
     if (refreshToken) {
         const { id, isAdmin } = userInf;
         const targetInterface = isAdmin ? adminRefreshToken : userRefreshToken;
         const params: any = { id };
         const res: IFetchRes = await targetInterface(params);
-        console.log(res);
         if (res?.code !== 200) return;
         userInf.token = res.data.token;
-        localStorage.setItem('userInf', JSON.stringify(userInf));
+        setLocal('userInf', userInf);
         const newHeaders = {
             ...options.headers,
             'Content-Type': 'application/json;charset=utf-8',
@@ -48,21 +47,12 @@ export const customFetch = (
     data: BodyInit | null = null,
     headers: HeadersInit = {}
 ) => {
-    const userInf = localStorage.getItem('userInf');
+    const userInf = getLocal('userInf');
     const options: RequestInit = {
         method,
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            Authorization: `${
-                'Basic ' +
-                base64Encode(
-                    JSON.parse(
-                        //decodeURIComponent(
-                        userInf || 'null'
-                        //   )
-                    )?.token + ':'
-                )
-            }`,
+            Authorization: `${'Basic ' + base64Encode(userInf?.token + ':')}`,
             ...headers,
         },
     };

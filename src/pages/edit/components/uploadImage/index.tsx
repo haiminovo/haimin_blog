@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Modal, Upload } from 'antd';
-import type { RcFile, UploadProps } from 'antd/es/upload';
-import type { UploadFile } from 'antd/es/upload/interface';
+import type { RcFile } from 'antd/es/upload';
+import type { UploadChangeParam, UploadFile } from 'antd/es/upload/interface';
+import { getUploadToken } from '@/api/oss';
 
 const getBase64 = (file: RcFile): Promise<string> =>
     new Promise((resolve, reject) => {
@@ -14,16 +15,17 @@ const getBase64 = (file: RcFile): Promise<string> =>
 
 interface IProps {
     value: UploadFile[];
+    onChange: (info: UploadChangeParam<UploadFile>) => void;
     maxCount: number;
 }
 
 export default function UploadImage(props: IProps) {
-    const { value, maxCount } = props;
+    const { value, onChange, maxCount } = props;
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
-    const [fileList, setFileList] = useState<UploadFile[]>(value);
 
+    const [uploadToken, setUploadToken] = useState();
     const handleCancel = () => setPreviewOpen(false);
 
     const handlePreview = async (file: UploadFile) => {
@@ -36,29 +38,36 @@ export default function UploadImage(props: IProps) {
         setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
     };
 
-    const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => setFileList(newFileList);
-
     const uploadButton = (
         <button style={{ border: 0, background: 'none' }} type="button">
             <PlusOutlined />
             <div style={{ marginTop: 8 }}>Upload</div>
         </button>
     );
+
+    const initUpload = async () => {
+        const res = await getUploadToken();
+        setUploadToken(res?.data?.upload_token);
+    };
+
+    useEffect(() => {
+        initUpload();
+    }, []);
+
     return (
-        <>
-            <Upload
-                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                listType="picture-card"
-                fileList={fileList}
-                onPreview={handlePreview}
-                onChange={handleChange}
-                maxCount={maxCount}
-            >
-                {fileList?.length >= maxCount ? null : uploadButton}
-            </Upload>
+        <Upload
+            action="http://upload-z0.qiniup.com"
+            listType="picture-card"
+            fileList={value}
+            onPreview={handlePreview}
+            onChange={onChange}
+            maxCount={maxCount}
+            data={{ token: uploadToken }}
+        >
             <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img alt="example" style={{ width: '100%' }} src={previewImage} />
             </Modal>
-        </>
+            {value?.length >= maxCount ? null : uploadButton}
+        </Upload>
     );
 }

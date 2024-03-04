@@ -30,4 +30,19 @@ export function base64Encode(value: string) {
     return base64;
 }
 
+export function getLocal(name: string) {
+    return JSON.parse(localStorage.getItem(name) || '');
+}
 
+export function setLocal(name: string,value:any) {
+    const oldValue = getLocal(name);
+    if (typeof value == 'object') {
+        if(oldValue!==''){
+            return localStorage.setItem(name,JSON.stringify({...oldValue,...value}))
+        }
+        else{
+            return localStorage.setItem(name,JSON.stringify(value))
+        }
+    }
+    return localStorage.setItem(name,value);
+}

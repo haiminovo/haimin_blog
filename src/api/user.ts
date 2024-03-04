@@ -1,5 +1,5 @@
 import siteData from '@/data/siteData';
-import { base64Encode } from '@/utils/commonUtils';
+import { base64Encode, getLocal, setLocal } from '@/utils/commonUtils';
 import { customFetch } from '@/utils/fetchUtil';
 
 interface IUserRegisterParams {
@@ -19,27 +19,13 @@ interface IUserLoginParams {
 }
 export const userLogin = async (params: BodyInit & IUserLoginParams) => {
     const res = await customFetch(siteData.serverURL + '/user/login', 'POST', params);
-    localStorage.setItem(
-        'userInf',
-        //encodeURIComponent(
-        JSON.stringify(res.data)
-        //    )
-    );
+    setLocal('userInf', res.data);
     return res;
 };
 
 export const userAuth = async () => {
     const res = await customFetch(siteData.serverURL + '/user/auth', 'POST', null, {
-        Authorization: `${
-            'Basic ' +
-            base64Encode(
-                JSON.parse(
-                    //decodeURIComponent(
-                    localStorage.getItem('userInf') || 'null'
-                    //   )
-                )?.token + ':'
-            )
-        }`,
+        Authorization: `${'Basic ' + base64Encode(getLocal('userInf')?.token + ':')}`,
     });
     return res;
 };

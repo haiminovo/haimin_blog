@@ -31,7 +31,7 @@ async function tokenRefreshMiddleware(url: string, options: RequestInit) {
         const newHeaders = {
             ...options.headers,
             'Content-Type': 'application/json;charset=utf-8',
-            Authorization: `${'Basic ' + base64Encode(userInf?.token + ':')}`,
+            Authorization: userInf && `${'Basic ' + base64Encode(userInf?.token + ':')}`,
         };
         options.headers = newHeaders;
         return fetch(url, options).then(async (response) => {
@@ -42,7 +42,7 @@ async function tokenRefreshMiddleware(url: string, options: RequestInit) {
 }
 
 export const customFetch = (
-    url: string = siteData.serverURL,
+    url: string = siteData.serverUrl,
     method: string = 'GET',
     data: BodyInit | null = null,
     headers: HeadersInit = {}
@@ -52,14 +52,14 @@ export const customFetch = (
         method,
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            Authorization: `${'Basic ' + base64Encode(userInf?.token + ':')}`,
+            Authorization: userInf && `${'Basic ' + base64Encode(userInf?.token + ':')}`,
             ...headers,
         },
     };
-
     if (data) {
         options.body = JSON.stringify(data);
     }
+
     return fetch(url, options)
         .then(async (response) => {
             const res = await response.json();

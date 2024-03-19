@@ -11,7 +11,7 @@ export default function ArticlesPage() {
 
     const initArticleList = async () => {
         const articleListRes = await getArticleList();
-        if (articleListRes.code === 200) {
+        if (articleListRes?.code === 200) {
             setArticlesData(articleListRes.data?.data);
         } else {
             return;

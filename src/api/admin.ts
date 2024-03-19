@@ -9,7 +9,7 @@ interface IAdminRegisterParams {
     password2: string;
 }
 export const adminRegister = async (params: BodyInit & IAdminRegisterParams) => {
-    const res = await customFetch(siteData.serverURL + '/admin/register', 'POST', params);
+    const res = await customFetch(siteData.serverUrl + '/admin/register', 'POST', params);
     return res;
 };
 
@@ -18,13 +18,13 @@ interface IAdminLoginParams {
     password: string;
 }
 export const adminLogin = async (params: BodyInit & IAdminLoginParams) => {
-    const res = await customFetch(siteData.serverURL + '/admin/login', 'POST', params);
+    const res = await customFetch(siteData.serverUrl + '/admin/login', 'POST', params);
     setLocal('userInf', res.data);
     return res;
 };
 
 export const adminAuth = async () => {
-    const res = await customFetch(siteData.serverURL + '/admin/auth', 'POST', null, {
+    const res = await customFetch(siteData.serverUrl + '/admin/auth', 'POST', null, {
         Authorization: `${'Basic ' + base64Encode(getLocal('userInf')?.token + ':')}`,
     });
     return res;
@@ -35,6 +35,6 @@ interface IRefreshParams {
 }
 
 export const adminRefreshToken = async (params?: BodyInit & IRefreshParams) => {
-    const res = await customFetch(siteData.serverURL + '/admin/refresh', 'POST', params);
+    const res = await customFetch(siteData.serverUrl + '/admin/refresh', 'POST', params);
     return res;
 };

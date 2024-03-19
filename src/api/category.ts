@@ -6,27 +6,27 @@ interface ICategoryCreateParams {
     parent_id?: string; //  分类父级ID
 }
 export const createCategory = async (params: BodyInit & ICategoryCreateParams) => {
-    const res = await customFetch(siteData.serverURL + '/category', 'POST', params);
+    const res = await customFetch(siteData.serverUrl + '/category', 'POST', params);
     return res;
 };
 
 export const deleteCategory = async (id: number) => {
-    const res = await customFetch(siteData.serverURL + `/category/:${id}`, 'DELETE');
+    const res = await customFetch(siteData.serverUrl + `/category/:${id}`, 'DELETE');
     return res;
 };
 
 export const upodateCategory = async (id: number, params: BodyInit & ICategoryCreateParams) => {
-    const res = await customFetch(siteData.serverURL + `/category/:${id}`, 'PUT', params);
+    const res = await customFetch(siteData.serverUrl + `/category/:${id}`, 'PUT', params);
     return res;
 };
 
 export const getCategory = async (id: number) => {
-    const res = await customFetch(siteData.serverURL + `/category/:${id}`);
+    const res = await customFetch(siteData.serverUrl + `/category/:${id}`);
     return res;
 };
 
 export const getCategoryList = async () => {
-    const res = await customFetch(siteData.serverURL + '/category');
+    const res = await customFetch(siteData.serverUrl + '/category');
     return res;
 };
 

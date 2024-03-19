@@ -9,7 +9,7 @@ interface IUserRegisterParams {
     password2: string;
 }
 export const userRegister = async (params: BodyInit & IUserRegisterParams) => {
-    const res = await customFetch(siteData.serverURL + '/user/register', 'POST', params);
+    const res = await customFetch(siteData.serverUrl + '/user/register', 'POST', params);
     return res;
 };
 
@@ -18,13 +18,13 @@ interface IUserLoginParams {
     password: string;
 }
 export const userLogin = async (params: BodyInit & IUserLoginParams) => {
-    const res = await customFetch(siteData.serverURL + '/user/login', 'POST', params);
+    const res = await customFetch(siteData.serverUrl + '/user/login', 'POST', params);
     setLocal('userInf', res.data);
     return res;
 };
 
 export const userAuth = async () => {
-    const res = await customFetch(siteData.serverURL + '/user/auth', 'POST', null, {
+    const res = await customFetch(siteData.serverUrl + '/user/auth', 'POST', null, {
         Authorization: `${'Basic ' + base64Encode(getLocal('userInf')?.token + ':')}`,
     });
     return res;
@@ -35,27 +35,27 @@ interface IRefreshParams {
 }
 
 export const userRefreshToken = async (params?: BodyInit & IRefreshParams) => {
-    const res = await customFetch(siteData.serverURL + '/user/refresh', 'POST', params);
+    const res = await customFetch(siteData.serverUrl + '/user/refresh', 'POST', params);
     return res;
 };
 
 // 管理员权限接口
 export const getUserList = async (params?: BodyInit & IUserLoginParams) => {
-    const res = await customFetch(siteData.serverURL + '/user/list', 'GET', params);
+    const res = await customFetch(siteData.serverUrl + '/user/list', 'GET', params);
     return res;
 };
 
 export const getUserDetail = async (params?: BodyInit & IUserLoginParams) => {
-    const res = await customFetch(siteData.serverURL + '/user/detail/:id', 'GET', params);
+    const res = await customFetch(siteData.serverUrl + '/user/detail/:id', 'GET', params);
     return res;
 };
 
 export const deleteUser = async (params?: BodyInit & IUserLoginParams) => {
-    const res = await customFetch(siteData.serverURL + '/user/delete/:id', 'GET', params);
+    const res = await customFetch(siteData.serverUrl + '/user/delete/:id', 'GET', params);
     return res;
 };
 
 export const updateUser = async (params?: BodyInit & IUserLoginParams) => {
-    const res = await customFetch(siteData.serverURL + '/user/update/:id', 'GET', params);
+    const res = await customFetch(siteData.serverUrl + '/user/update/:id', 'GET', params);
     return res;
 };

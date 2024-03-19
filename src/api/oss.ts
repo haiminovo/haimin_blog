@@ -2,7 +2,7 @@ import siteData from "@/data/siteData";
 import { customFetch } from "@/utils/fetchUtil";
 
 export const getUploadToken = async (params?: BodyInit) => {
-    const res = await customFetch(siteData.serverURL + '/oss/token', 'GET', params);
+    const res = await customFetch(siteData.serverUrl + '/oss/token', 'GET', params);
     return res;
 };
 

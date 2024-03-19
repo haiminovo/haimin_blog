@@ -4,7 +4,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'http',
-                hostname: 'haiminovo.cn',
+                hostname: '**',
                 pathname: '**',
             },
         ],

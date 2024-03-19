@@ -11,22 +11,22 @@ interface IArticleCreateParams {
     browser?: string; //  浏览数
 }
 export const createArticle = async (params: BodyInit & IArticleCreateParams) => {
-    const res = await customFetch(siteData.serverURL + '/article', 'POST', params);
+    const res = await customFetch(siteData.serverUrl + '/article', 'POST', params);
     return res;
 };
 
 export const deleteArticle = async (id: number) => {
-    const res = await customFetch(siteData.serverURL + `/article/:${id}`, 'DELETE');
+    const res = await customFetch(siteData.serverUrl + `/article/:${id}`, 'DELETE');
     return res;
 };
 
 export const upodateArticle = async (id: number, params: BodyInit & IArticleCreateParams) => {
-    const res = await customFetch(siteData.serverURL + `/article/:${id}`, 'PUT', params);
+    const res = await customFetch(siteData.serverUrl + `/article/:${id}`, 'PUT', params);
     return res;
 };
 
 export const getArticle = async (id: number) => {
-    const res = await customFetch(siteData.serverURL + `/article/${id}`);
+    const res = await customFetch(siteData.serverUrl + `/article/${id}`);
     return res;
 };
 
@@ -37,7 +37,7 @@ interface IGetArticleListParams {
     seo_keyword?: string; //  关键字
 }
 export const getArticleList = async (params?: IGetArticleListParams & BodyInit) => {
-    const res = await customFetch(siteData.serverURL + '/article', 'GET', params || undefined);
+    const res = await customFetch(siteData.serverUrl + '/article', 'GET', params || undefined);
     return res;
 };
 
@@ -47,6 +47,6 @@ interface IArticleSearchParams {
     desc: 'created_at' | 'browse';
 }
 export const searchArticle = async (params: IArticleSearchParams) => {
-    const res = await customFetch(siteData.serverURL + `/search/article`);
+    const res = await customFetch(siteData.serverUrl + `/search/article`);
     return res;
 };

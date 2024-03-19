@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { Base64 } from 'js-base64';
 
 export function getRandom(min: number, max: number) {
@@ -31,7 +32,14 @@ export function base64Encode(value: string) {
 }
 
 export function getLocal(name: string) {
-    return JSON.parse(localStorage.getItem(name) || '');
+    let value = null;
+    try{
+        value = JSON.parse(localStorage.getItem(name) || '');
+    }
+    catch(err){
+        console.error(`获取本地数据${name}失败`);
+    }
+    return value;
 }
 
 export function setLocal(name: string,value:any) {

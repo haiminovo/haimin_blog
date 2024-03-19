@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import { getCategoryList } from '@/api/category';
 import { DefaultOptionType } from 'antd/es/select';
 import { createArticle } from '@/api/article';
+import siteConfig from '@/configs/siteConfig';
 const ReactQuillEditor = dynamic(import('@/components/quillEditor'), { ssr: false });
 
 export default function EditPage() {
@@ -17,10 +18,10 @@ export default function EditPage() {
 
     const handleClickSubmit = async () => {
         console.log('////////////');
-        
-        console.log(form.getFieldValue('img'));
+
+        console.log(form.getFieldValue('img_url'));
         const res = await createArticle({ admin_id: 'haimin', ...form.getFieldsValue() });
-        if (res.code === 200) {
+        if (res?.code === 200) {
             message.success({
                 content: '文章发布成功',
                 duration: 2,
@@ -73,11 +74,10 @@ export default function EditPage() {
                     </Form.Item>
                     <Form.Item
                         label="封面"
-                        name="img"
+                        name="img_url"
                         valuePropName="fileList"
                         getValueFromEvent={(e) => {
-                            if (Array.isArray(e)) return e;
-                            return e && e.fileList;
+                            return siteConfig.imgServerUrl + e?.fileList?.[0]?.response?.key;
                         }}
                     >
                         <UploadImage value={fileList} onChange={handleUploadChange} maxCount={1}></UploadImage>

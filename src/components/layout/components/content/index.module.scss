@@ -11,6 +11,7 @@
 
     &__children {
         max-width: 1024px;
+        min-width: 1024px;
         background-color: $lightBgColor;
         border: 1px solid $borderColor;
     }

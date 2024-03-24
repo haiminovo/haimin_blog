@@ -12,11 +12,11 @@
             height: 100%;
             .card {
                 margin: 0;
-                height: 160px;
+                height: 310px;
                 color: #fff;
-                line-height: 160px;
                 text-align: center;
                 background: #364d79;
+                object-fit: contain;
             }
         }
     }
@@ -30,9 +30,9 @@
             overflow-x: auto;
             scroll-behavior: smooth;
             scroll-snap-type: x mandatory;
-            &:hover {
-                scrollbar-width: thin;
-            }
+            // &:hover {
+            //     scrollbar-width: thin;
+            // }
             .item {
                 flex-shrink: 0;
                 height: 160px;
@@ -40,7 +40,9 @@
                 background: #364d79;
                 transition: all 0.2s;
                 cursor: pointer;
-
+                border: 2px solid #364d79;
+                border-radius: 16px;
+                box-shadow: 5px 5px 5px #aaa;
                 &:hover {
                     width: 320px;
                 }

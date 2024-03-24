@@ -4,6 +4,11 @@ import { Carousel } from 'antd';
 import style from './index.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { debounce } from 'lodash';
+import Image from 'next/image';
+import { getArticleList } from '@/api/article';
+import ArticalList from '@/components/articalList';
+import { useRouter } from 'next/router';
+import { IArticlesData } from './article/[id]';
 
 export default function Home() {
     const [categoryList, setCategoryList] = useState<any[]>([]);
@@ -19,7 +24,29 @@ export default function Home() {
         });
     };
     useEffect(() => {
-        setCategoryList([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        setCategoryList([
+            { src: '/imgs/category0.png' },
+            { src: '/imgs/category1.png' },
+            { src: '/imgs/category2.png' },
+            { src: '/imgs/category3.png' },
+            { src: '/imgs/category4.png' },
+            { src: '/imgs/category5.png' },
+        ]);
+    }, []);
+    const router = useRouter();
+    const [articlesData, setArticlesData] = useState<IArticlesData[]>([]);
+
+    const initArticleList = async () => {
+        const articleListRes = await getArticleList();
+        if (articleListRes?.code === 200) {
+            setArticlesData(articleListRes.data?.data);
+        } else {
+            return;
+        }
+    };
+
+    useEffect(() => {
+        initArticleList();
     }, []);
     return (
         <Layout>
@@ -27,31 +54,49 @@ export default function Home() {
                 {/* <LineBallCanvas></LineBallCanvas> */}
                 <div className={style.main__top}>
                     <Carousel className={style.cards} autoplay afterChange={onChange}>
-                        <div>
-                            <h3 className={style.card}>1</h3>
-                        </div>
-                        <div>
-                            <h3 className={style.card}>2</h3>
-                        </div>
-                        <div>
-                            <h3 className={style.card}>3</h3>
-                        </div>
+                        <Image
+                            alt="banner0"
+                            src="/imgs/banner0.png"
+                            width={990}
+                            height={320}
+                            className={style.card}
+                            unoptimized
+                        />
+                        <Image
+                            alt="banner1"
+                            src="/imgs/banner1.png"
+                            width={990}
+                            height={320}
+                            className={style.card}
+                            unoptimized
+                        />
+                        <Image
+                            alt="banner2"
+                            src="/imgs/banner2.png"
+                            width={990}
+                            height={320}
+                            className={style.card}
+                            unoptimized
+                        />
                     </Carousel>
                 </div>
                 <div className={style.main__mid}>
                     <div className={style.box} ref={scrollBox}>
-                        {categoryList.map((_item: any, index: number) => {
+                        {categoryList.map((item: any, index: number) => {
                             return (
                                 <div
                                     key={index}
                                     className={style.item}
-                                    onMouseEnter={debounce((current) => handleLastMidItemHover(current),500)}
+                                    onMouseEnter={debounce((current) => handleLastMidItemHover(current), 500)}
                                 >
-                                    {_item}
+                                    <Image alt="" src={item.src} width={154} height={154} unoptimized />
                                 </div>
                             );
                         })}
                     </div>
+                </div>
+                <div>
+                <ArticalList articlesData={articlesData}></ArticalList>
                 </div>
             </div>
         </Layout>

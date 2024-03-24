@@ -2,7 +2,7 @@ import { getArticle } from '@/api/article';
 import Layout from '@/components/layout';
 import { ICategoryInfo } from '@/data/mock/articlesMockData';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface IArticlesData {
     created_at: string;
@@ -27,16 +27,16 @@ export interface IArticlesData {
 
 export default function ArticlePage() {
     const router = useRouter();
-
     const [articleData, setArticleData] = useState<IArticlesData>();
+    const contentRef:any = useRef();
     const { id } = router.query;
-
     const initArtical = async () => {
         if (id) {
             const getArticalRes = await getArticle(+id);
             console.log(getArticalRes);
             if (getArticalRes.code === 200) {
                 setArticleData(getArticalRes.data);
+                
             }
         } else {
             router.push({ pathname: '/article' });
@@ -46,6 +46,9 @@ export default function ArticlePage() {
     useEffect(() => {
         initArtical();
     }, []);
+    useEffect(()=>{
+        contentRef.current.innerHTML=articleData?.content
+    },[articleData]);
     return (
         <Layout>
             <div>article{id}</div>
@@ -53,9 +56,10 @@ export default function ArticlePage() {
             <div>{articleData?.admin_info+''}</div>
             <div>{articleData?.browse}</div>
             <div>{articleData?.category_id}</div>
-            <div>{articleData?.category_info+''}</div>
+            <div>{"分类编号："+articleData?.category_info.id}</div>
+            <div>{"分类:"+articleData?.category_info.name}</div>
             <div>{articleData?.comment_count}</div>
-            <div>{articleData?.content}</div>
+            <div ref={contentRef}></div>
             <div>{articleData?.created_at}</div>
             <div>{articleData?.deleted_at}</div>
             <div>{articleData?.description}</div>

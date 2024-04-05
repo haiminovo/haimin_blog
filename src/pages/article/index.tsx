@@ -3,7 +3,7 @@ import Layout from '@/components/layout';
 import { IArticlesData } from '@/data/mock/articlesMockData';
 import { getArticleList } from '@/api/article';
 import { useRouter } from 'next/router';
-import ArticalList from '@/components/articalList';
+import ArticleList from '@/components/articleList';
 
 export default function ArticlesPage() {
     const router = useRouter();
@@ -24,7 +24,7 @@ export default function ArticlesPage() {
 
     return (
         <Layout>
-           <ArticalList articlesData={articlesData}></ArticalList>
+           <ArticleList articlesData={articlesData}></ArticleList>
         </Layout>
     );
 }

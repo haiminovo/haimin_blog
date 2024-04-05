@@ -6,13 +6,13 @@ import { useEffect, useRef, useState } from 'react';
 import { debounce } from 'lodash';
 import Image from 'next/image';
 import { getArticleList } from '@/api/article';
-import ArticalList from '@/components/articalList';
+import ArticleList from '@/components/articleList';
 import { useRouter } from 'next/router';
 import { IArticlesData } from './article/[id]';
 
 export default function Home() {
     const [categoryList, setCategoryList] = useState<any[]>([]);
-    const onChange = (currentSlide: number) => {};
+    const onChange = (currentSlide: number) => { };
 
     const scrollBox = useRef<any>();
     const handleLastMidItemHover = (current: any) => {
@@ -25,12 +25,12 @@ export default function Home() {
     };
     useEffect(() => {
         setCategoryList([
-            { src: '/imgs/category0.png' },
-            { src: '/imgs/category1.png' },
-            { src: '/imgs/category2.png' },
-            { src: '/imgs/category3.png' },
-            { src: '/imgs/category4.png' },
-            { src: '/imgs/category5.png' },
+            { src: '/imgs/category0.png', title: '病状咨询', num: '24' },
+            { src: '/imgs/category1.png', title: '病状咨询', num: '24' },
+            { src: '/imgs/category2.png', title: '病状咨询', num: '24' },
+            { src: '/imgs/category3.png', title: '病状咨询', num: '24' },
+            { src: '/imgs/category4.png', title: '病状咨询', num: '24' },
+            { src: '/imgs/category5.png', title: '病状咨询', num: '24' },
         ]);
     }, []);
     const router = useRouter();
@@ -90,13 +90,18 @@ export default function Home() {
                                     onMouseEnter={debounce((current) => handleLastMidItemHover(current), 500)}
                                 >
                                     <Image alt="" src={item.src} width={154} height={154} unoptimized />
+                                    <div className={style.inf}>
+                                        <p>{item.title}</p>
+                                        <p>文章数：{item.num}</p>
+                                    </div>
+
                                 </div>
                             );
                         })}
                     </div>
                 </div>
                 <div>
-                <ArticalList articlesData={articlesData}></ArticalList>
+                    <ArticleList articlesData={articlesData}></ArticleList>
                 </div>
             </div>
         </Layout>

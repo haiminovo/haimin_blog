@@ -1,0 +1,38 @@
+@import '/src/styles/common.scss';
+
+.my {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 16px;
+    .top{
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+    .title{
+        font-size: 24px;
+        font-weight: bold;
+        .btn{
+            font-size: 18px;
+            font-weight: 400;
+        }
+    }
+    .inf {
+        display: flex;
+        gap: 16px;
+        width: 100%;
+        font-size: 24px;
+        font-weight: bolder;
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            height: 200px;
+            background-color: #ddd;
+            border-radius: 16px;
+        }
+    }
+}

@@ -45,8 +45,8 @@ export const getUserList = async (params?: BodyInit & IUserLoginParams) => {
     return res;
 };
 
-export const getUserDetail = async (params?: BodyInit & IUserLoginParams) => {
-    const res = await customFetch(siteData.serverUrl + '/user/detail/:id', 'GET', params);
+export const getUserDetail = async (id:number,params?: BodyInit & IUserLoginParams) => {
+    const res = await customFetch(siteData.serverUrl + `user/detail/${id}`, 'GET', params);
     return res;
 };
 

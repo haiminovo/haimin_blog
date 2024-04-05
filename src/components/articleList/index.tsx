@@ -7,7 +7,7 @@ interface IProps {
     articlesData: IArticlesData[];
 }
 
-export default function ArticalList({ articlesData }: IProps) {
+export default function ArticleList({ articlesData }: IProps) {
     return (
         <div className={style.articles}>
             {articlesData.map((item: IArticlesData) => {

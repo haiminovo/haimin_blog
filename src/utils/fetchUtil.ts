@@ -2,6 +2,8 @@ import siteData from '@/data/siteData';
 import { base64Encode, getLocal, setLocal } from './commonUtils';
 import { userRefreshToken } from '@/api/user';
 import { adminRefreshToken } from '@/api/admin';
+import { debounce } from 'lodash';
+import { message } from 'antd';
 
 export interface IFetchRes {
     code: number;
@@ -38,6 +40,8 @@ async function tokenRefreshMiddleware(url: string, options: RequestInit) {
             const res = await response.json();
             return res;
         });
+    }else{
+        message.warning('请进行身份验证')
     }
 }
 
@@ -69,7 +73,6 @@ export const customFetch = (
             return res;
         })
         .catch((error) => {
-            console.error('Fetch error:', error);
             throw error;
         });
 };

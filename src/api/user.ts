@@ -45,7 +45,7 @@ export const getUserList = async (params?: BodyInit & IUserLoginParams) => {
     return res;
 };
 
-export const getUserDetail = async (id:number,params?: BodyInit & IUserLoginParams) => {
+export const getUserDetail = async (id: number, params?: BodyInit & IUserLoginParams) => {
     const res = await customFetch(siteData.serverUrl + `user/detail/${id}`, 'GET', params);
     return res;
 };
@@ -55,7 +55,8 @@ export const deleteUser = async (params?: BodyInit & IUserLoginParams) => {
     return res;
 };
 
-export const updateUser = async (params?: BodyInit & IUserLoginParams) => {
-    const res = await customFetch(siteData.serverUrl + '/user/update/:id', 'GET', params);
+export const updateUser = async (params?: BodyInit & any) => {
+    const { id } = getLocal('userInf');
+    const res = await customFetch(siteData.serverUrl + `/user/update/${id}`, 'PUT', params);
     return res;
 };

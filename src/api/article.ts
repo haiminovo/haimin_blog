@@ -16,17 +16,28 @@ export const createArticle = async (params: BodyInit & IArticleCreateParams) => 
 };
 
 export const deleteArticle = async (id: number) => {
-    const res = await customFetch(siteData.serverUrl + `/article/:${id}`, 'DELETE');
+    const res = await customFetch(siteData.serverUrl + `/article/${id}`, 'DELETE');
     return res;
 };
 
-export const upodateArticle = async (id: number, params: BodyInit & IArticleCreateParams) => {
-    const res = await customFetch(siteData.serverUrl + `/article/:${id}`, 'PUT', params);
+export const updateArticle = async (id: number, params: BodyInit & IArticleCreateParams) => {
+    const res = await customFetch(siteData.serverUrl + `/article/${id}`, 'PUT', params);
+    return res;
+};
+
+export const likeArticle = async (id: number) => {
+    const res = await customFetch(siteData.serverUrl + `/article/like/${id}`, 'PUT');
     return res;
 };
 
 export const getArticle = async (id: number) => {
     const res = await customFetch(siteData.serverUrl + `/article/${id}`);
+    return res;
+};
+
+export const findArticle = async (params: BodyInit & any) => {
+    const {admin_id} = params;
+    const res = await customFetch(siteData.serverUrl + `/article/find?admin_id=${admin_id}`, 'GET');
     return res;
 };
 

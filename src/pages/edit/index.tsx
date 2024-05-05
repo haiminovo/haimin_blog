@@ -9,6 +9,8 @@ import { getCategoryList } from '@/api/category';
 import { DefaultOptionType } from 'antd/es/select';
 import { createArticle } from '@/api/article';
 import siteConfig from '@/configs/siteConfig';
+import { getLocal } from '@/utils/commonUtils';
+import router from 'next/router';
 const ReactQuillEditor = dynamic(import('@/components/quillEditor'), { ssr: false });
 
 export default function EditPage() {
@@ -17,15 +19,17 @@ export default function EditPage() {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
 
     const handleClickSubmit = async () => {
-        console.log('////////////');
-
-        console.log(form.getFieldValue('img_url'));
-        const res = await createArticle({ admin_id: 'haimin', ...form.getFieldsValue() });
-        if (res?.code === 200) {
-            message.success({
-                content: '文章发布成功',
-                duration: 2,
-            });
+        try {
+            const {id} = getLocal('userInf');
+            const res = await createArticle({ admin_id: id, ...form.getFieldsValue() });
+            if (res?.code === 200) {
+                message.success({
+                    content: '文章发布成功',
+                    duration: 2,
+                });
+                router.push({ pathname: `/` });
+            }
+        } catch (error) {
         }
     };
 

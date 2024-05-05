@@ -18,19 +18,19 @@ export default function Home() {
     const handleLastMidItemHover = (current: any) => {
         const range = current.target.offsetLeft - 640;
         console.log(range);
-        scrollBox.current.scrollTo({
+        scrollBox?.current?.scrollTo({
             left: range,
             behavior: 'smooth',
         });
     };
     useEffect(() => {
         setCategoryList([
-            { src: '/imgs/category0.png', title: '病状咨询', num: '24' },
-            { src: '/imgs/category1.png', title: '病状咨询', num: '24' },
-            { src: '/imgs/category2.png', title: '病状咨询', num: '24' },
-            { src: '/imgs/category3.png', title: '病状咨询', num: '24' },
-            { src: '/imgs/category4.png', title: '病状咨询', num: '24' },
-            { src: '/imgs/category5.png', title: '病状咨询', num: '24' },
+            { src: '/imgs/category0.png', title: '病症自检', num: '2' },
+            { src: '/imgs/category1.png', title: '病状咨询', num: '5' },
+            { src: '/imgs/category2.png', title: '医师建议', num: '3' },
+            { src: '/imgs/category3.png', title: '健康知识', num: '0' },
+            { src: '/imgs/category4.png', title: '病理研究', num: '2' },
+            { src: '/imgs/category5.png', title: '应急护理', num: '1' },
         ]);
     }, []);
     const router = useRouter();

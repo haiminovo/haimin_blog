@@ -52,6 +52,12 @@ export const getArticleList = async (params?: IGetArticleListParams & BodyInit) 
     return res;
 };
 
+export const getArticleListByCategory = async (categoryId:number) => {
+    const res = await customFetch(siteData.serverUrl + `/article?category_id=${categoryId}`, 'GET');
+    return res;
+};
+
+
 interface IArticleSearchParams {
     keyword: string;
     page: number;

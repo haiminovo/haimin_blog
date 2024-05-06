@@ -61,8 +61,9 @@ export default function ArticlePage() {
         }
     };
     const handleSubmitComment = async () => {
-        if (articalId) {
-            const { email, id: userId } = getLocal('userInf')
+        const userInf = getLocal('userInf');
+        if (articalId&&userInf) {
+            const { email, id: userId } = userInf;
             const params: any = {
                 article_id: +articalId,
                 user_id: userId,
@@ -77,6 +78,9 @@ export default function ArticlePage() {
                 console.log(res);
             } catch (error) {
             }
+        }
+        else{
+            message.warning('请先登录')
         }
     }
     const handleLikeClick = async ()=>{
@@ -157,8 +161,8 @@ export default function ArticlePage() {
                         {articleData?.admin_id}
                     </div>
                     <div>
-                        <b>用户信息：</b>
-                        {articleData?.admin_info + ''}
+                        <b>作者名称：</b>
+                        {articleData?.admin_info?.nickname||articleData?.admin_info?.username}
                     </div>
                     <div>
                         <b>浏览数：</b>

@@ -43,6 +43,10 @@ export default function LoginModal() {
                 setLoginError(res.msg?.toLocaleString());
             }
         }
+        else {
+            setLoginError(res?.msg[0])
+            setButtonLoading(false)
+        }
         setFetchDone(true);
     };
 
@@ -71,7 +75,7 @@ export default function LoginModal() {
 
     const registerForm = (
         <Form className={style.LoginModal__form} name="login" form={form} validateTrigger="onBlur">
-            <Form.Item name="username" rules={[{ required: true, message: '' }]} initialValue={null}>
+            <Form.Item name="nickname" rules={[{ required: true, message: '' }]} initialValue={null}>
                 <Input placeholder="请输入用户名" allowClear />
             </Form.Item>
             <Form.Item name="email" rules={[{ required: true, message: '' }]} initialValue={null}>

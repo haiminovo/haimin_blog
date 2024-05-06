@@ -9,6 +9,7 @@ import { getArticleList } from '@/api/article';
 import ArticleList from '@/components/articleList';
 import { useRouter } from 'next/router';
 import { IArticlesData } from './article/[id]';
+import { getCategoryList } from '@/api/category';
 
 export default function Home() {
     const [categoryList, setCategoryList] = useState<any[]>([]);
@@ -36,17 +37,33 @@ export default function Home() {
     const router = useRouter();
     const [articlesData, setArticlesData] = useState<IArticlesData[]>([]);
 
-    const initArticleList = async () => {
+    const initPage = async () => {
         const articleListRes = await getArticleList();
         if (articleListRes?.code === 200) {
             setArticlesData(articleListRes.data?.data);
         } else {
             return;
         }
+        const categoryListRes = await getCategoryList();
+        setCategoryList(
+            categoryListRes.data.data.reverse().map((item: any,index:number) => {
+                return {
+                    src:`/imgs/category${index}.png`,
+                    num: 0,
+                    title: item.name,
+                };
+            })
+        );
     };
 
+    const handleCategoryClick = (id:number)=>{
+        router.push({ pathname: `/category/${id}` });
+    }
+
+    
+
     useEffect(() => {
-        initArticleList();
+        initPage();
     }, []);
     return (
         <Layout>
@@ -88,11 +105,12 @@ export default function Home() {
                                     key={index}
                                     className={style.item}
                                     onMouseEnter={debounce((current) => handleLastMidItemHover(current), 500)}
+                                    onClick={()=>handleCategoryClick(index+1)}
                                 >
                                     <Image alt="" src={item.src} width={154} height={154} unoptimized />
                                     <div className={style.inf}>
                                         <p>{item.title}</p>
-                                        <p>文章数：{item.num}</p>
+                                        {/* <p>文章数：{item.num}</p> */}
                                     </div>
 
                                 </div>
